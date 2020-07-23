@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+      <link rel="stylesheet" href="css/style.css">
+      <link rel="icon" href="img/pizap.png">
+      <title>INFINITY TESTS - Создать вопрос</title>
+   </head>
+   <body>
+     <h1 style="text-align: center;">INFINITY TESTS</h1>
+     <h2 style="text-align: center;">Создание теста</h2>
+     <hr style="background: #A850BE;">
+      <div class="container" id="create_test">
+         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+               <a class="nav-link active" id="pills-plus-tab" data-toggle="pill" href="#pills-plus" role="tab" aria-controls="pills-plus" aria-selected="false">+</a>
+            </li>
+         </ul>
+         <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane active" id="pills-plus" role="tabpanel" aria-labelledby="pills-plus-tab">
+              <div class="form" id="create-question">
+                  <div class="form-group row">
+                     <h3>Вопрос</h3>
+                     <div class="col-sm-10">
+                        <input type="text" placeholder="Текст вопроса" class="form-control" id="input_question">
+                     </div>
+                  </div>
+                  <fieldset class="form-group">
+                     <div class="row">
+                        <legend class="col-form-label col-sm-2 pt-0">Варианты ответа</legend>
+                        <div class="col-sm-10">
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="gridRadios" id="option_radio1" value="option1">
+                              <input type="text" placeholder="Первый вариант ответа" class="form-control" id="inputText1">
+                              <br>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="gridRadios" id="option_radio2" value="option1">
+                              <input type="text" placeholder="Второй вариант ответа" class="form-control" id="inputText2">
+                              <br>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="gridRadios" id="option_radio3" value="option1">
+                              <input type="text" placeholder="Третий вариант ответа" class="form-control" id="inputText3">
+                              <br>
+                           </div>
+                           <div class="form-check">
+                              <input class="form-check-input" type="radio" name="gridRadios" id="option_radio4" value="option1">
+                              <input type="text" placeholder="Четвертый вариант ответа" class="form-control" id="inputText4">
+                              <br>
+                           </div>
+                        </div>
+                        <legend class="col-form-label col-sm-2 pt-0">Изображение: </legend>
+                        <div class="col-sm-10">
+                           <div class="form">
+                              <div class="form-group">
+                                 <input type="file" id="files" />
+                                 <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="checkbox_file">
+                                    <label class="custom-control-label" id="checkbox_file_label" for="checkbox_file">Без изображения</label>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </fieldset>
+                  <div class="form-group row">
+                     <div class="col-sm-10">
+                        <button type="submit" class="btn btn-outline-success" onclick="create_question()">Создать вопрос</button>
+                        <button type="submit" class="btn btn-outline-danger" onclick="location.href='index.html'">Назад</button>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="container">
+        <label class="my-1 mr-2 d-flex justify-content-center" for="school">Школа</label>
+        <input type="number" placeholder="Номер школы" class="form-control w-50 m-auto" id="school">
+
+        <label class="my-1 mr-2 mt-2 d-flex justify-content-center" for="klass">Класс</label>
+        <input type="text" placeholder="Класс (с буквой)" class="form-control w-50 m-auto" id="klass">
+
+        <label class="my-1 mr-2 mt-2 d-flex justify-content-center" for="subject">Предмет</label>
+        <div class="w-50" style="margin: 0 auto;">
+          <select class="custom-select my-1 mr-sm-2" id="subject">
+             <option>Алгебра</option>
+             <option>Английский</option>
+             <option>Биология</option>
+             <option>География</option>
+             <option>Геометрия</option>
+             <option>История</option>
+             <option>Литература</option>
+             <option>Физика</option>
+             <option>Химия</option>
+             <option>Русский</option>
+             <option>ОБЖ</option>
+             <option>Обществознание</option>
+             <option>Информатика</option>
+          </select>
+        </div>
+        <label for="theme" class="my-1 mr-2 mt-2 d-flex justify-content-center">Тема</label>
+        <input type="text" placeholder="Тема вопроса" class="form-control w-50 m-auto" id="theme">
+      </div>
+      <footer class="d-flex justify-content-center mb-3">
+        <button type="button" class="btn btn-success" id="create-test-btn">Создать тест</button>
+      </footer>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+      <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+      <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-database.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-firestore.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-storage.js"></script>
+      <script src="js/firebase.js"></script>
+      <script src="js/create_test.js"></script>
+   </body>
+</html>

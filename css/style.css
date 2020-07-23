@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans+Extra+Condensed&display=swap');
+
+/* Main styles */
+* {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+nav { color: #000; border-bottom: 3px solid #4B0C5B; }
+
+#code_teacher_div { margin-bottom: 3%; }
+
+#buttons-auth {
+    margin-top: 2%;
+}
+
+#name_signIn_teacher, #surname_signIn_teacher,
+#name_signIn_student, #surname_signIn_student,
+#name_reg_teacher, #surname_reg_teacher,
+#code-teacher-input {
+    font-size: 20px;
+    text-align: center;
+    box-shadow: none;
+}
+
+#name, #surname, #code-teacher {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 1%;
+}
+
+#sign-in-teacher, #sign-in-student, #reg-teacher {
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+#sign-in-teacher-list, #sign-in-student-list, #reg-teacher-list, #it-free {
+    background: #fff;
+    color: #000;
+    border: 2px solid #A850BE;
+    border-radius: 0px;
+    font-size: 20px;
+    box-shadow: none;
+    outline: none;
+}
+
+#sign-in-teacher-list:hover, #sign-in-student-list:hover,
+#reg-teacher-list:hover, #it-free:hover {
+    background: #A850BE;
+    color: #fff;
+    border: 2px solid #A850BE;
+    border-radius: 0px;
+    font-size: 20px;
+    box-shadow: none;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+#sign-in-teacher-btn, #sign-in-student-btn, #reg-teacher-btn {
+    background: #A850BE;
+    color: #fff;
+    border: 2px solid #A850BE;
+    border-radius: 10px;
+    font-size: 15px;
+    box-shadow: none;
+    outline: none;
+}
+
+#sign-in-teacher-btn:hover, #sign-in-student-btn:hover, #reg-teacher-btn:hover {
+    background: #fff;
+    color: #000;
+    border: 2px solid #A850BE;
+    box-shadow: none;
+    outline: none;
+}
+
+#choice-where { box-shadow: none; }
+
+/* Create Question */
+#table_tests, #create-test { margin-top: 2%; }
+
+#question { margin-bottom: 1%; }
+
+#test { padding: 3%; }
+
+#option1_div, #option2_div,
+#option3_div, #option4_div,
+#correct_answer_info, #back, #send_test,
+#title, #checkbox_admin_panel,
+#form_reg, #title, #reg_teacher,
+#checkbox_file_label { margin-top: 1%; }
+
+#send_test, .swal2-cancel { margin-left: 1%; }
+
+#test { margin: 1%; }
+
+#number-test, #subject-test,
+#school-test, #klass-test, #theme-test { padding-top: 1.7%; }
+
+#home-tab, #students-tab, #results-students-tab, #tests-tab, #back-tab {
+    color: #A850BE;
+}
+
+#reg-new-student {
+    color: #A850BE;
+    border: 2px solid #A850BE;
+}
+
+#reg-new-student:hover {
+    background: #A850BE;
+    color: #fff;
+    transition: 0.5s ease;
+}
+
+#v-pills-home-tab, #v-pills-students-tab,
+#v-pills-results-students-tab, #v-pills-tests-tab, #v-back {
+    border-radius: none;
+}
+
+#v-pills-home-tab:hover, #v-pills-students-tab:hover,
+#v-pills-results-students-tab:hover, #v-pills-tests-tab:hover, #v-back:hover {
+    background: #A850BE;
+    color: #fff;
+    transition: 0.3s ease;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background: #A850BE;
+    color: #fff;
+    transition: 0.3s ease;
+}
+
+#main {
+    margin-top: 1%;
+}
+
+#link-tabs {
+    margin-left: 1%;
+}
+
+#create-test-btn {
+  margin-top: 1.5vh;
+}

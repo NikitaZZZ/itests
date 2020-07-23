@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/pizap.png">
+    <title>INFINITY TESTS - Вход</title>
+</head>
+<body>
+    <nav>
+        <h1 class="text-center" id="it-tests">INFINITY TESTS</h1>
+    </nav>
+
+    <div class="justify-content-center" id="main-auth">
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="teacher" role="tabpanel" aria-labelledby="list-teacher-list">
+                <div class="container" id="student_div">
+                    <h1 class="mt-2 text-center">Войти как учитель</h2>
+                    <div class="form-group">
+                        <p for="name_signIn_student" class="text-center" id="name">Имя</p>
+                        <input type="text" class="form-control w-50 mx-auto" id="name_signIn_teacher" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <p for="surname_signIn_student" class="text-center" id="surname">Фамилия</p>
+                        <input type="text" class="form-control w-50 mx-auto" id="surname_signIn_teacher">
+                    </div>
+                    <div class="form-group">
+                        <p for="surname_signIn_student" class="text-center" id="code-teacher">Код</p>
+                        <input type="text" class="form-control w-50 mx-auto" id="code-teacher-input">
+                    </div>
+                    <div class="form-group mb-4">
+                        <select class="form-control w-25 mx-auto" id="choice-where">
+                            <option value="tests">Тесты</option>
+                            <option value="create_test">Создание теста</option>
+                            <option value="admin">Панель управления</option>
+                        </select>
+                    </div>
+                    <button type="button" onclick="signInTeacher()" class="btn btn-lg btn-block w-25 mx-auto" id="sign-in-teacher-btn">Войти</button>
+                </div>
+            </div>            
+            <div class="tab-pane fade" id="student" role="tabpanel" aria-labelledby="list-student-list">
+                <div class="container">
+                    <h1 class="mt-4 text-center">Войти как ученик</h2>
+                    <div class="form-group">
+                        <p for="name_signIn_student" class="text-center" id="name">Имя</p>
+                        <input type="text" class="form-control w-50 mx-auto" id="name_signIn_student" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group mb-4">
+                        <p for="surname_signIn_student" class="text-center" id="surname">Фамилия</p>
+                        <input type="text" class="form-control w-50 mx-auto" id="surname_signIn_student">
+                    </div>
+                    <button type="button" onclick="signInStudents()" class="btn btn-lg btn-block w-25 mx-auto" id="sign-in-student-btn">Войти</button>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="reg-teacher" role="tabpanel" aria-labelledby="list-reg-teacher-list">
+                <div class="container">
+                    <h1 class="mt-4 text-center">Зарегистрировать учителя</h2>
+                    <div class="form-group">
+                        <p for="name_signIn_student" class="text-center" id="name">Имя</p>
+                        <input type="text" class="form-control w-50 mx-auto" id="name_reg_teacher" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group mb-4">
+                        <p for="surname_signIn_student" class="text-center" id="surname">Фамилия</p>
+                        <input type="text" class="form-control w-50 mx-auto" id="surname_reg_teacher">
+                    </div>
+                    <button type="button" onclick="signUpTeacher()" class="btn-lg btn-block w-25 mx-auto" id="reg-teacher-btn">Зарегистрировать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="buttons-auth">
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" id="sign-in-student-list" data-toggle="list" href="#teacher" role="tab" aria-controls="teacher">Учитель</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="sign-in-teacher-list" data-toggle="list" href="#student" role="tab" aria-controls="student">Ученик</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="reg-teacher-list" data-toggle="list" href="#reg-teacher" role="tab" aria-controls="reg-teache">Зарегистировать учителя</a>
+            </li>
+        </ul>
+    </div>
+        
+    <script src="https://kit.fontawesome.com/373834e38f.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
+    <script src="js/firebase.js"></script>
+    <script src="js/auth.js"></script>
+    <!-- <script src="js/admin.js"></script> -->
+</body>
+</html>

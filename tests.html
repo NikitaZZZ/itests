@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="img/pizap.png">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>INFINITY TESTS - Тесты</title>
+</head>
+<body>
+    <div class="container">
+        <h1 style="text-align: center;">INFINITY TESTS</h1>
+        <h2 style="text-align: center" id="title">Тесты</h2>
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-outline-danger" id="back" onclick="location.href='index.html'">Назад</button>
+        </div>
+        <table class="table" id="table_tests">
+            <thead id="thead_table">
+                <tr>
+                    <th>#</th> 
+                    <th>Предмет</th>
+                    <th>Тема</th>
+                    <th>Вход:</th>
+                </tr>
+            </thead>
+            <tbody id="inner_table">
+                
+            </tbody>
+        </table>  
+        <div class="col-sm" id="div_tests">
+ 
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/373834e38f.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
+    <script src="js/firebase.js"></script>
+    <!-- <script src="js/auth.js"></script> -->
+    <script src="js/tests.js"></script>
+    <script>
+        function call_test(id, correct, subject, theme, question) {
+            let isCorrect = "";
+                let option1 = document.getElementById(`option1${id}`);
+                let option2 = document.getElementById(`option2${id}`);
+                let option3 = document.getElementById(`option3${id}`);
+                let option4 = document.getElementById(`option4${id}`);
+                let button = document.getElementById(`open_question${id}`);
+                let button_check_answer = document.getElementById(`check-answer${id}`);
+                if (option1.checked === false && option2.checked === false && option3.checked === false && option4.checked === false) {
+                    Swal.fire({
+                        title: "Выберите вариант ответа!",
+                        icon: "error"
+                    });
+                } else {
+                    button_check_answer.disabled = true;
+                    if (option1.checked) {
+                        if (correct === 1) {
+                            Swal.fire({
+                                text: "Правильно!",
+                                icon: "success"
+                            });
+                            isCorrect = "Правильно";
+                        } else if (correct === 2) {
+                            Swal.fire({
+                                text: "Неправильно!",
+                                icon: "error"
+                            });
+                            isCorrect = "Неправильно";
+                        } else if (correct === 3) {
+                            Swal.fire({
+                                text: "Неправильно!",
+                                icon: "error"
+                            });
+                            isCorrect = "Неправильно";
+                        } else if (correct === 4) {
+                            Swal.fire({
+                                text: "Неправильно!",
+                                icon: "error"
+                            });
+                            isCorrect = "Неправильно";
+                        }
+                    } else if (option2.checked) {
+                        if (correct === 1) {
+                            Swal.fire({
+                                text: "Неправильно!",
+                                icon: "error"
+                            });
+                            isCorrect = "Неправильно";
+                        } else if (correct === 2) {
+                            Swal.fire({
+                                text: "Правильно!",
+                                icon: "success"
+                            });
+                            isCorrect = "Правильно";
+                        } else if (correct === 3) {
+                            Swal.fire({
+                                text: "Неправильно!",
+                                icon: "error"
+                            });
+                            isCorrect = "Неправильно";
+                        } else if (correct === 4) {
+                            Swal.fire({
+                                text: "Неправильно!",
+                                icon: "error"
+                            });
+                            isCorrect = "Неправильно";
+                        }
+                    } else if (option3.checked) {
+                        if (correct === 1) {
+                            Swal.fire({
+                                text: "Неправильно!",
+                                icon: "error"
+                            });
+                            isCorrect = "Неправильно";
+                        } else if (correct === 2) {
+                            Swal.fire({
+                                text: "Неправильно!",
+                                icon: "error"
+                            });
+                            isCorrect = "Неправильно";
+                        } else if (correct === 3) {
+                            Swal.fire({
+                                text: "Правильно!",
+                                icon: "success"
+                            });
+                            isCorrect = "Правильно";
+                        } else if (correct === 4) {
+                            Swal.fire({
+                                text: "Неправильно!",
+                                icon: "error"
+                            });
+                            isCorrect = "Неправильно";
+                        }
+                    } else if (option4.checked) {
+                        if (correct === 1) {
+                            Swal.fire({
+                                text: "Неправильно!",
+                                icon: "error"
+                            });
+                            isCorrect = "Неправильно";
+                        } else if (correct === 2) {
+                            Swal.fire({
+                                text: "Неправильно!",
+                                icon: "error"
+                            });
+                            isCorrect = "Неправильно";
+                        } else if (correct === 3) {
+                            Swal.fire({
+                                text: "Неправильно!",
+                                icon: "error"
+                            });
+                            isCorrect = "Неправильно";
+                        } else if (correct === 4) {
+                            Swal.fire({
+                                text: "Правильно!",
+                                icon: "success"
+                            });
+                            isCorrect = "Правильно";
+                        }
+                    }
+
+                    let db = firebase.firestore();
+                    let id_teacher_local = localStorage.getItem("id_teacher_local");
+                    db.collection("results").add({
+                        name: name,
+                        surname: surname,
+                        id_teacher_r: id_teacher_local,
+                        test_subject: subject,
+                        test_theme: theme,
+                        test_title: question,
+                        result: isCorrect 
+                    });
+                }
+        }
+    </script>
+</body>
+</html>
