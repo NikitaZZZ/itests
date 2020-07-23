@@ -19,18 +19,18 @@
         <table class="table" id="table_tests">
             <thead id="thead_table">
                 <tr>
-                    <th>#</th> 
+                    <th>#</th>
                     <th>Предмет</th>
                     <th>Тема</th>
                     <th>Вход:</th>
                 </tr>
             </thead>
             <tbody id="inner_table">
-                
+
             </tbody>
-        </table>  
+        </table>
         <div class="col-sm" id="div_tests">
- 
+
         </div>
     </div>
 
@@ -48,22 +48,22 @@
     <!-- <script src="js/auth.js"></script> -->
     <script src="js/tests.js"></script>
     <script>
-        function call_test(id, correct, subject, theme, question) {
+        function call_test(id, correct, subject, theme, question,
+        question_number_e) {
             let isCorrect = "";
-                let option1 = document.getElementById(`option1${id}`);
-                let option2 = document.getElementById(`option2${id}`);
-                let option3 = document.getElementById(`option3${id}`);
-                let option4 = document.getElementById(`option4${id}`);
+                let option1_e = document.getElementById(`option1${question_number_e}`);
+                let option2_e = document.getElementById(`option2${question_number_e}`);
+                let option3_e = document.getElementById(`option3${question_number_e}`);
+                let option4_e = document.getElementById(`option4${question_number_e}`);
                 let button = document.getElementById(`open_question${id}`);
-                let button_check_answer = document.getElementById(`check-answer${id}`);
-                if (option1.checked === false && option2.checked === false && option3.checked === false && option4.checked === false) {
+                let button_check_answer = document.getElementById(`check-answer${question_number}`);
+                if (option1_e.checked === false && option2_e.checked === false && option3_e.checked === false && option4_e.checked === false) {
                     Swal.fire({
                         title: "Выберите вариант ответа!",
                         icon: "error"
                     });
                 } else {
-                    button_check_answer.disabled = true;
-                    if (option1.checked) {
+                    if (option1_e.checked) {
                         if (correct === 1) {
                             Swal.fire({
                                 text: "Правильно!",
@@ -89,7 +89,7 @@
                             });
                             isCorrect = "Неправильно";
                         }
-                    } else if (option2.checked) {
+                    } else if (option2_e.checked) {
                         if (correct === 1) {
                             Swal.fire({
                                 text: "Неправильно!",
@@ -115,7 +115,7 @@
                             });
                             isCorrect = "Неправильно";
                         }
-                    } else if (option3.checked) {
+                    } else if (option3_e.checked) {
                         if (correct === 1) {
                             Swal.fire({
                                 text: "Неправильно!",
@@ -141,7 +141,7 @@
                             });
                             isCorrect = "Неправильно";
                         }
-                    } else if (option4.checked) {
+                    } else if (option4_e.checked) {
                         if (correct === 1) {
                             Swal.fire({
                                 text: "Неправильно!",
@@ -178,7 +178,7 @@
                         test_subject: subject,
                         test_theme: theme,
                         test_title: question,
-                        result: isCorrect 
+                        result: isCorrect
                     });
                 }
         }

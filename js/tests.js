@@ -11,87 +11,95 @@ let surname = localStorage.getItem("surname");
 // Переменная для нумерации вопросов
 number_test = 0;
 
+// Переменная для изображений
+let image_number = -1;
+
+// Для вопросов
+let question_number = -1;
+
 // Массив с id'ми учителей
 let teachers_tests_id = [];
 
 // Вывод тестов
 db.collection("tests").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
-        console.log(doc);
-        let inner_table = document.getElementById("inner_table");
-        let subject = doc.Ud.Ze.proto.mapValue.fields.subject.stringValue;
-        let theme = doc.Ud.Ze.proto.mapValue.fields.theme.stringValue;
-        let id_teacher_db = doc.Ud.Ze.proto.mapValue.fields.id_teacher_t.stringValue;
-        let id = doc.Ud.Ze.proto.mapValue.fields.id.integerValue;
-        let id_image = doc.Ud.Ze.proto.mapValue.fields.id.integerValue;
-        let option1 = doc.Ud.Ze.proto.mapValue.fields.option1.stringValue;
-        let option2 = doc.Ud.Ze.proto.mapValue.fields.option2.stringValue;
-        let option3 = doc.Ud.Ze.proto.mapValue.fields.option3.stringValue;
-        let option4 = doc.Ud.Ze.proto.mapValue.fields.option4.stringValue;
-        let question = doc.Ud.Ze.proto.mapValue.fields.question.stringValue;
-        let correct = doc.Ud.Ze.proto.mapValue.fields.correct.integerValue;
+        image_number += 1;
+
+        let id_db = doc.Ud.Ze.proto.mapValue.fields.id.integerValue;
+        let id_teacher_t_db = doc.Ud.Ze.proto.mapValue.fields.id_teacher_t.stringValue;
         let klass_db = doc.Ud.Ze.proto.mapValue.fields.klass.stringValue;
-        let image = firebase.storage().ref(`images_test/${id_image}`);
-        let test = document.getElementById("div_tests");
+        let subject_db = doc.Ud.Ze.proto.mapValue.fields.subject.stringValue;
+        let theme_db = doc.Ud.Ze.proto.mapValue.fields.theme.stringValue;
+        let questions_db = doc.Ud.Ze.proto.mapValue.fields.questions.arrayValue.values;
+        let image = firebase.storage().ref(`test${image_number}/${id_db}`);
+
         let student_id = localStorage.getItem("student_id");
         let klass = localStorage.getItem("klass");
         let word_klass = localStorage.getItem("word_klass");
 
-        if (id_teacher_db === student_id) {
+        let test = document.getElementById("div_tests");
+        let inner_table = document.getElementById("inner_table");
+
+        if (id_teacher_t_db === student_id) {
           if (`${klass}${word_klass}` === klass_db) {
             number_test += 1;
             inner_table.innerHTML += `
               <tr>
                 <th scope="row">${number_test}</th>
-                <td>${subject}</td>
-                <td>${theme}</td>
+                <td>${subject_db}</td>
+                <td>${theme_db}</td>
                 <td>
-                  <button class="btn btn-outline-dark" data-toggle="modal" data-target="#${subject}${id}">Открыть вопрос</button>
+                  <button class="btn btn-outline-dark" data-toggle="modal" data-target="#${subject_db}${id_db}">Открыть тест</button>
                 </td>
               </tr>
             `;
 
             test.innerHTML += `
-              <div class="modal fade" id="${subject}${id}" tabindex="-1" role="dialog" aria-hidden="true">
+              <div class="modal fade" id="${subject_db}${id_db}" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
-                  <div class="modal-content" id="test">
-                    <p class="lead" id="question">${question}</p>
-                    <img class="img-fluid" id="image-test${id}">
-                    <div class="custom-control custom-radio" id="option1_div">
-                      <input class="custom-control-input" name="radio-answer" type="radio" id="option1${id}">
-                      <label class="custom-control-label" for="option1${id}">${option1}</label>
-                    </div>
-                    <div class="custom-control custom-radio" id="option2_div">
-                      <input class="custom-control-input" name="radio-answer" type="radio" id="option2${id}">
-                      <label class="custom-control-label" for="option2${id}">${option2}</label>
-                    </div>
-                    <div class="custom-control custom-radio" id="option3_div">
-                      <input class="custom-control-input" name="radio-answer" type="radio" id="option3${id}">
-                      <label class="custom-control-label" for="option3${id}">${option3}</label>
-                    </div>
-                    <div class="custom-control custom-radio" id="option4_div">
-                      <input class="custom-control-input" name="radio-answer" type="radio" id="option4${id}">
-                      <label class="custom-control-label" for="option4${id}">${option4}</label>
-                    </div>
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                      <button class="btn btn-outline-success" id="check-answer${id}" style="margin-top: 2%;" onclick="call_test(${id}, ${correct}, '${subject}', '${theme}', '${question}');" style="border-radius: 0">
-                          <i class="fas fa-check"></i>
-                        Ответить
-                      </button>
-                      <button class="btn btn-outline-primary" id="back_answer${id}" onclick="backAnswer(${id})" style="margin-top: 2%;">
-                          <i class="fas fa-backward"></i>
-                        Дать другой ответ
-                      </button>
-                      <button class="btn btn-outline-dark" style="margin-top: 2%;" data-dismiss="modal">
-                          <i class="fas fa-door-open"></i>
-                        Закрыть
-                      </button>
-                    </div>
+                  <div class="modal-content" id="test"></div>
+                  <div class="modal-footer" id="test-footer">
+                    <button class="btn btn-outline-dark" data-dismiss="modal" id="close-test">
+                      <i class="fas fa-door-open"></i>
+                      Закрыть
+                    </button>
                   </div>
                 </div>
               </div>
             `;
-  
+
+            let question = document.getElementById("test");
+
+            for (let i = 0; i < questions_db.length; i++) {
+              question_number += 1;
+              question.innerHTML += `
+                <p class="lead" id="question">${questions_db[question_number].mapValue.fields.input_question.stringValue}</p>
+                <img class="img-fluid" id="image-test${id_db}">
+                <div class="custom-control custom-radio" id="option1_div">
+                  <input class="custom-control-input" name="radio-answer${question_number}" type="radio" id="option1${question_number}">
+                  <label class="custom-control-label" for="option1${question_number}">${questions_db[question_number].mapValue.fields.option_1.stringValue}</label>
+                </div>
+                <div class="custom-control custom-radio" id="option2_div">
+                  <input class="custom-control-input" name="radio-answer${question_number}" type="radio" id="option2${question_number}">
+                  <label class="custom-control-label" for="option2${question_number}">${questions_db[question_number].mapValue.fields.option_2.stringValue}</label>
+                </div>
+                <div class="custom-control custom-radio" id="option3_div">
+                  <input class="custom-control-input" name="radio-answer${question_number}" type="radio" id="option3${question_number}">
+                  <label class="custom-control-label" for="option3${question_number}">${questions_db[question_number].mapValue.fields.option_3.stringValue}</label>
+                </div>
+                <div class="custom-control custom-radio" id="option4_div">
+                  <input class="custom-control-input" name="radio-answer${question_number}" type="radio" id="option4${question_number}">
+                  <label class="custom-control-label" for="option4${question_number}">${questions_db[question_number].mapValue.fields.option_4.stringValue}</label>
+                </div>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button class="btn btn-outline-success" id="check-answer${question_number}" style="margin-top: 2%;" onclick="call_test(${id_db}, ${questions_db[question_number].mapValue.fields.correct_answer.integerValue}, '${subject_db}', '${theme_db}', '${questions_db[question_number].mapValue.fields.input_question.stringValue}', '${question_number}');" style="border-radius: 0">
+                      <i class="fas fa-check"></i>
+                    Ответить
+                  </button>
+                </div>
+              `;
+            }
+
             image.getDownloadURL().then((url) => {
               let image_test = document.getElementById(`image-test${id}`);
               image_test.src = url;
@@ -107,8 +115,3 @@ db.collection("tests").get().then((querySnapshot) => {
       }
     })
 });
-
-// Отмена ответа
-function backAnswer(id) {
-    let check_answer_btn = document.getElementById(`check-answer${id}`).disabled = false;
-}

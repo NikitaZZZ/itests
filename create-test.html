@@ -70,7 +70,6 @@
                   <div class="form-group row">
                      <div class="col-sm-10">
                         <button type="submit" class="btn btn-outline-success" onclick="create_question()">Создать вопрос</button>
-                        <button type="submit" class="btn btn-outline-danger" onclick="location.href='index.html'">Назад</button>
                      </div>
                   </div>
                </div>
@@ -105,9 +104,12 @@
         <label for="theme" class="my-1 mr-2 mt-2 d-flex justify-content-center">Тема</label>
         <input type="text" placeholder="Тема вопроса" class="form-control w-50 m-auto" id="theme">
       </div>
-      <footer class="d-flex justify-content-center mb-3">
-        <button type="button" class="btn btn-success" id="create-test-btn">Создать тест</button>
+      <footer class="d-flex justify-content-center mb-2">
+        <button type="button" class="btn btn-success" id="create-test-btn" onclick="create_test()">Создать тест</button>
       </footer>
+      <div class="d-flex justify-content-center mb-2">
+        <button type="button" class="btn btn-danger" id="back-test" onclick="location.href='index.html'">Назад</button>
+      </div>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
       <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

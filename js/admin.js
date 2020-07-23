@@ -10,10 +10,10 @@ let results_students_mas = [];
 // MAS FOR STUDENTS
 let students_mas = [];
 
-// NUMBER FOR TESTS 
+// NUMBER FOR TESTS
 let number_tests = 0;
 
-// MAS FOR TESTS 
+// MAS FOR TESTS
 let tests_mas = [];
 
 // INNER FOR HTML
@@ -56,7 +56,7 @@ function signUpStudent() {
             name: name,
             surname: surname,
             klass: klass,
-            word_klass: word_klass, 
+            word_klass: word_klass,
             id_teacher_t: id_teacher_admin
         });
 
@@ -70,11 +70,11 @@ function students_list() {
 
     db.collection("students").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            let name_fb = doc._document.proto.fields.name.stringValue;
-            let surname_fb = doc._document.proto.fields.surname.stringValue;
-            let id_teacher_admin2 = doc._document.proto.fields.id_teacher_t.stringValue;
-            let word_klass = doc._document.proto.fields.word_klass.stringValue;
-            let klass = doc._document.proto.fields.klass.stringValue;
+            let name_fb = doc.Ud.Ze.proto.mapValue.fields.name.stringValue;
+            let surname_fb = doc.Ud.Ze.proto.mapValue.fields.surname.stringValue;
+            let id_teacher_admin2 = doc.Ud.Ze.proto.mapValue.fields.id_teacher_t.stringValue;
+            let word_klass = doc.Ud.Ze.proto.mapValue.fields.word_klass.stringValue;
+            let klass = doc.Ud.Ze.proto.mapValue.fields.klass.stringValue;
 
             let student_obj = {
                 name: name_fb,
@@ -99,24 +99,24 @@ function students_list() {
                     </tr>
                 `;
             } else { }
-        }       
+        }
     });
 }
 
 // List for results students
 function results_students_list() {
     // id local (localStorage)
-    let id_teacher_admin2 = localStorage.getItem('id_teacher_local'); 
+    let id_teacher_admin2 = localStorage.getItem('id_teacher_local');
 
     db.collection("results").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            let name_fb = doc._document.proto.fields.name.stringValue;
-            let surname_fb = doc._document.proto.fields.surname.stringValue;
-            let test_subject = doc._document.proto.fields.test_subject.stringValue;
-            let test_theme_fb = doc._document.proto.fields.test_theme.stringValue;
-            let test_title_fb = doc._document.proto.fields.test_title.stringValue;
-            let result_fb = doc._document.proto.fields.result.stringValue;
-            let teacher_fb = doc._document.proto.fields.id_teacher_r.stringValue;
+            let name_fb = doc.Ud.Ze.proto.mapValue.fields.name.stringValue;
+            let surname_fb = doc.Ud.Ze.proto.mapValue.fields.surname.stringValue;
+            let test_subject = doc.Ud.Ze.proto.mapValue.fields.test_subject.stringValue;
+            let test_theme_fb = doc.Ud.Ze.proto.mapValue.fields.test_theme.stringValue;
+            let test_title_fb = doc.Ud.Ze.proto.mapValue.fields.test_title.stringValue;
+            let result_fb = doc.Ud.Ze.proto.mapValue.fields.result.stringValue;
+            let teacher_fb = doc.Ud.Ze.proto.mapValue.fields.id_teacher_r.stringValue;
 
             let student_res_obj = {
                 name: name_fb,
@@ -146,24 +146,24 @@ function results_students_list() {
                     </tr>
                 `;
             } else { }
-        }       
+        }
     });
 }
 
 // Enter tests for teacher
 function tests() {
     // id local (localStorage)
-    let id_teacher_admin2 = localStorage.getItem('id_teacher_local'); 
+    let id_teacher_admin2 = localStorage.getItem('id_teacher_local');
 
     db.collection("tests").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
 
-            let subject_fb = doc._document.proto.fields.subject.stringValue;
-            let question = doc._document.proto.fields.question.stringValue;
-            id = doc._document.proto.fields.id.integerValue;
-            let klass_fb = doc._document.proto.fields.klass.stringValue;
-            let school_fb = doc._document.proto.fields.school.stringValue;
-            let theme_fb = doc._document.proto.fields.theme.stringValue;
+            let subject_fb = doc.Ud.Ze.proto.mapValue.fields.subject.stringValue;
+            let question = doc.Ud.Ze.proto.mapValue.fields.question.stringValue;
+            id = doc.Ud.Ze.proto.mapValue.fields.id.integerValue;
+            let klass_fb = doc.Ud.Ze.proto.mapValue.fields.klass.stringValue;
+            let school_fb = doc.Ud.Ze.proto.mapValue.fields.school.stringValue;
+            let theme_fb = doc.Ud.Ze.proto.mapValue.fields.theme.stringValue;
 
             // id fb (firebase)
             let id_teacher_admin1 = doc._document.proto.fields.id_teacher_t.stringValue;
@@ -199,7 +199,7 @@ function tests() {
                         </button>
                     </td>
                 </tr>
-            `;    
+            `;
             } else { }
         }
 

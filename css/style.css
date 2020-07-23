@@ -140,3 +140,20 @@ nav { color: #000; border-bottom: 3px solid #4B0C5B; }
 #create-test-btn {
   margin-top: 1.5vh;
 }
+
+#test-footer {
+  padding-top: 0;
+  border-top: 0;
+  margin-left: 1vh;
+  background: #fff;
+}
+
+#close-test {
+  color: #fff;
+  margin-top: 1.4vh;
+  background: #343a40;
+}
+
+#close-test:hover {
+  cursor: pointer;
+}
