@@ -31,7 +31,6 @@ db.collection("tests").get().then((querySnapshot) => {
         let subject_db = doc.Ud.Ze.proto.mapValue.fields.subject.stringValue;
         let theme_db = doc.Ud.Ze.proto.mapValue.fields.theme.stringValue;
         let questions_db = doc.Ud.Ze.proto.mapValue.fields.questions.arrayValue.values;
-        let image = firebase.storage().ref(`test${image_number}/${id_db}`);
 
         let student_id = localStorage.getItem("student_id");
         let klass = localStorage.getItem("klass");
@@ -57,12 +56,14 @@ db.collection("tests").get().then((querySnapshot) => {
             test.innerHTML += `
               <div class="modal fade" id="${subject_db}${id_db}" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
-                  <div class="modal-content" id="test"></div>
-                  <div class="modal-footer" id="test-footer">
-                    <button class="btn btn-outline-dark" data-dismiss="modal" id="close-test">
-                      <i class="fas fa-door-open"></i>
-                      Закрыть
-                    </button>
+                  <div class="modal-content">
+                    <div class="modal-body" id="test"></div>
+                    <div class="modal-footer" id="test-footer">
+                      <button class="btn btn-outline-dark" data-dismiss="modal" id="close-test">
+                        <i class="fas fa-door-open"></i>
+                        Закрыть
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -72,9 +73,11 @@ db.collection("tests").get().then((querySnapshot) => {
 
             for (let i = 0; i < questions_db.length; i++) {
               question_number += 1;
+              const current_question_number = question_number
+
               question.innerHTML += `
                 <p class="lead" id="question">${questions_db[question_number].mapValue.fields.input_question.stringValue}</p>
-                <img class="img-fluid" id="image-test${id_db}">
+                <img class="img-fluid" id="image-test${question_number}">
                 <div class="custom-control custom-radio" id="option1_div">
                   <input class="custom-control-input" name="radio-answer${question_number}" type="radio" id="option1${question_number}">
                   <label class="custom-control-label" for="option1${question_number}">${questions_db[question_number].mapValue.fields.option_1.stringValue}</label>
@@ -92,25 +95,26 @@ db.collection("tests").get().then((querySnapshot) => {
                   <label class="custom-control-label" for="option4${question_number}">${questions_db[question_number].mapValue.fields.option_4.stringValue}</label>
                 </div>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button class="btn btn-outline-success" id="check-answer${question_number}" style="margin-top: 2%;" onclick="call_test(${id_db}, ${questions_db[question_number].mapValue.fields.correct_answer.integerValue}, '${subject_db}', '${theme_db}', '${questions_db[question_number].mapValue.fields.input_question.stringValue}', '${question_number}');" style="border-radius: 0">
+                  <button class="btn btn-outline-success mt-2" id="check-answer${question_number}" style="margin-top: 2%;" onclick="call_test(${id_db}, ${questions_db[question_number].mapValue.fields.correct_answer.integerValue}, '${subject_db}', '${theme_db}', '${questions_db[question_number].mapValue.fields.input_question.stringValue}', '${question_number}');" style="border-radius: 0">
                       <i class="fas fa-check"></i>
                     Ответить
                   </button>
                 </div>
               `;
-            }
 
-            image.getDownloadURL().then((url) => {
-              let image_test = document.getElementById(`image-test${id}`);
-              image_test.src = url;
-            }).catch((error) => {
-              switch (error.code) {
-                case 'storage/object-not-found': break;
-                case 'storage/unauthorized': break;
-                case 'storage/canceled': break;
-                case 'storage/unknown': break;
-            }
-          })
+              let image = firebase.storage().ref(`/test${id_db}/question${question_number}`);
+              image.getDownloadURL().then((url) => {
+                let image_test = document.getElementById(`image-test${current_question_number}`);
+                image_test.src = url;
+              }).catch((error) => {
+                switch (error.code) {
+                  case 'storage/object-not-found': break;
+                  case 'storage/unauthorized': break;
+                  case 'storage/canceled': break;
+                  case 'storage/unknown': break;
+                }
+              })
+          }
         }
       }
     })

@@ -40,7 +40,7 @@
                     </div>
                     <button type="button" onclick="signInTeacher()" class="btn btn-lg btn-block w-25 mx-auto" id="sign-in-teacher-btn">Войти</button>
                 </div>
-            </div>            
+            </div>
             <div class="tab-pane fade" id="student" role="tabpanel" aria-labelledby="list-student-list">
                 <div class="container">
                     <h1 class="mt-4 text-center">Войти как ученик</h2>
@@ -51,6 +51,10 @@
                     <div class="form-group mb-4">
                         <p for="surname_signIn_student" class="text-center" id="surname">Фамилия</p>
                         <input type="text" class="form-control w-50 mx-auto" id="surname_signIn_student">
+                    </div>
+                    <div class="form-group mb-4">
+                        <p for="klass_signIn_student" class="text-center" id="surname">Класс (С буквой)</p>
+                        <input type="text" class="form-control w-50 mx-auto" id="klass_signIn_student">
                     </div>
                     <button type="button" onclick="signInStudents()" class="btn btn-lg btn-block w-25 mx-auto" id="sign-in-student-btn">Войти</button>
                 </div>
@@ -84,7 +88,7 @@
             </li>
         </ul>
     </div>
-        
+
     <script src="https://kit.fontawesome.com/373834e38f.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

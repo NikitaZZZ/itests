@@ -111,7 +111,7 @@ function create_question() {
     if (checkbox_file.checked) { } else {
         let file = document.getElementById("files").files[0];
         let file_name = file.name;
-        let storageRef = firebase.storage().ref(`/test${question_number}/` + number_id);
+        let storageRef = firebase.storage().ref(`/test${number_id}/` + `question${question_number}`);
         let uploadTask = storageRef.put(file);
 
         uploadTask.on('state_changed', (snapshot) => {}, (error) => {}, () => {

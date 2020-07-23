@@ -16,7 +16,7 @@ nav { color: #000; border-bottom: 3px solid #4B0C5B; }
 #name_signIn_teacher, #surname_signIn_teacher,
 #name_signIn_student, #surname_signIn_student,
 #name_reg_teacher, #surname_reg_teacher,
-#code-teacher-input {
+#code-teacher-input, #klass_signIn_student {
     font-size: 20px;
     text-align: center;
     box-shadow: none;
@@ -152,8 +152,4 @@ nav { color: #000; border-bottom: 3px solid #4B0C5B; }
   color: #fff;
   margin-top: 1.4vh;
   background: #343a40;
-}
-
-#close-test:hover {
-  cursor: pointer;
 }

@@ -21,6 +21,7 @@ const swalWithBootstrapButtons = Swal.mixin({
 function signInStudents() {
     const nameSignIn = document.getElementById("name_signIn_student").value.trim();
     const surnameSignIn = document.getElementById("surname_signIn_student").value.trim();
+    const klassSignIn = document.getElementById("klass_signIn_student").value.trim();
 
     db.collection("students").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -35,14 +36,15 @@ function signInStudents() {
                 surname: surname_fb,
                 id: teacher_id,
                 klass: klass_fb,
-                word_klass: word_klass_fb 
+                word_klass: word_klass_fb
             };
 
             students.push(student_obj);
         });
-
+        console.log(nameSignIn, surnameSignIn, klassSignIn);
+        console.log(students);
         for (let i = 0; i < students.length; i++) {
-            if (nameSignIn === students[i].name && surnameSignIn === students[i].surname) {
+            if (nameSignIn === students[i].name && surnameSignIn === students[i].surname && klassSignIn === `${students[i].klass}${students[i].word_klass}`) {
                 localStorage.setItem("name", students[i].name);
                 localStorage.setItem("surname", students[i].surname);
                 localStorage.setItem("student_id", students[i].id);
@@ -85,7 +87,7 @@ function signUpTeacher() {
             surname: surname,
             idteacher:  id_teacher_fb,
         });
-        
+
         Swal.fire({
             title: `Ваш код для входа: ${id_teacher_fb}`,
             text: `Не забудьте!`
@@ -162,7 +164,7 @@ function check_checkbox() {
         location.href = "admin.html";
     } else if (choice.value === "tests") {
         location.href = "tests.html"
-    } 
+    }
 }
 
 function check_input(type, name, surname) {
@@ -198,7 +200,7 @@ function check_input(type, name, surname) {
         } else if (code === "") {
             Swal.fire({
                 icon: "error",
-                title: "Пожалуйста, введите код"     
+                title: "Пожалуйста, введите код"
             })
         } else {
             signInTeacher();
