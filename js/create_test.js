@@ -182,7 +182,7 @@ function create_test() {
       title: 'Вы успешно создали тест!',
       showConfirmButton: false,
       timer: 1500
-  })
+  });
 
   db.collection(`tests`).doc(`${number_id}`).set({
       subject: subject,

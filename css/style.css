@@ -153,3 +153,7 @@ nav { color: #000; border-bottom: 3px solid #4B0C5B; }
   margin-top: 1.4vh;
   background: #343a40;
 }
+
+#hr {
+  height: 0.2vh;
+}
