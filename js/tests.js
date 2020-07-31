@@ -23,8 +23,8 @@ let teachers_tests_id = [];
 // Вывод тестов
 db.collection("tests").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
+        question_number = -1;
         image_number += 1;
-
         let id_db = doc.Ud.Ze.proto.mapValue.fields.id.integerValue;
         let id_teacher_t_db = doc.Ud.Ze.proto.mapValue.fields.id_teacher_t.stringValue;
         let klass_db = doc.Ud.Ze.proto.mapValue.fields.klass.stringValue;
@@ -57,7 +57,7 @@ db.collection("tests").get().then((querySnapshot) => {
               <div class="modal fade" id="${subject_db}${id_db}" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
-                    <div class="modal-body" id="test"></div>
+                    <div class="modal-body" id="test${id_db}"></div>
                     <div class="modal-footer" id="test-footer">
                       <button class="btn btn-outline-dark" data-dismiss="modal" id="close-test">
                         <i class="fas fa-door-open"></i>
@@ -69,7 +69,7 @@ db.collection("tests").get().then((querySnapshot) => {
               </div>
             `;
 
-            let question = document.getElementById("test");
+            let question = document.getElementById(`test${id_db}`);
 
             for (let i = 0; i < questions_db.length; i++) {
               question_number += 1;
@@ -79,23 +79,23 @@ db.collection("tests").get().then((querySnapshot) => {
                 <p class="lead" id="question">${questions_db[question_number].mapValue.fields.input_question.stringValue}</p>
                 <img class="img-fluid" id="image-test${question_number}">
                 <div class="custom-control custom-radio" id="option1_div">
-                  <input class="custom-control-input" name="radio-answer${question_number}" type="radio" id="option1${question_number}">
-                  <label class="custom-control-label" for="option1${question_number}">${questions_db[question_number].mapValue.fields.option_1.stringValue}</label>
+                  <input class="custom-control-input" name="radio-answer${question_number}${id_db}" type="radio" id="option1${question_number}${id_db}">
+                  <label class="custom-control-label" for="option1${question_number}${id_db}">${questions_db[question_number].mapValue.fields.option_1.stringValue}</label>
                 </div>
                 <div class="custom-control custom-radio" id="option2_div">
-                  <input class="custom-control-input" name="radio-answer${question_number}" type="radio" id="option2${question_number}">
-                  <label class="custom-control-label" for="option2${question_number}">${questions_db[question_number].mapValue.fields.option_2.stringValue}</label>
+                  <input class="custom-control-input" name="radio-answer${question_number}${id_db}" type="radio" id="option2${question_number}${id_db}">
+                  <label class="custom-control-label" for="option2${question_number}${id_db}">${questions_db[question_number].mapValue.fields.option_2.stringValue}</label>
                 </div>
                 <div class="custom-control custom-radio" id="option3_div">
-                  <input class="custom-control-input" name="radio-answer${question_number}" type="radio" id="option3${question_number}">
-                  <label class="custom-control-label" for="option3${question_number}">${questions_db[question_number].mapValue.fields.option_3.stringValue}</label>
+                  <input class="custom-control-input" name="radio-answer${question_number}${id_db}" type="radio" id="option3${question_number}${id_db}">
+                  <label class="custom-control-label" for="option3${question_number}${id_db}">${questions_db[question_number].mapValue.fields.option_3.stringValue}</label>
                 </div>
                 <div class="custom-control custom-radio" id="option4_div">
-                  <input class="custom-control-input" name="radio-answer${question_number}" type="radio" id="option4${question_number}">
-                  <label class="custom-control-label" for="option4${question_number}">${questions_db[question_number].mapValue.fields.option_4.stringValue}</label>
+                  <input class="custom-control-input" name="radio-answer${question_number}${id_db}" type="radio" id="option4${question_number}${id_db}">
+                  <label class="custom-control-label" for="option4${question_number}${id_db}">${questions_db[question_number].mapValue.fields.option_4.stringValue}</label>
                 </div>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button class="btn btn-outline-success mt-2" id="check-answer${question_number}" style="margin-top: 2%;" onclick="call_test(${id_db}, ${questions_db[question_number].mapValue.fields.correct_answer.integerValue}, '${subject_db}', '${theme_db}', '${questions_db[question_number].mapValue.fields.input_question.stringValue}', '${question_number}');" style="border-radius: 0">
+                  <button class="btn btn-outline-success mt-2" id="check-answer${question_number}${id_db}" style="margin-top: 2%;" onclick="call_test(${id_db}, ${questions_db[question_number].mapValue.fields.correct_answer.integerValue}, '${subject_db}', '${theme_db}', '${questions_db[question_number].mapValue.fields.input_question.stringValue}', '${question_number}');" style="border-radius: 0">
                       <i class="fas fa-check"></i>
                     Ответить
                   </button>

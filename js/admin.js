@@ -91,6 +91,8 @@ function students_list() {
         for (let i = 0; i < students_mas.length; i++) {
             if ( teacher_lc === students_mas[i].id ) {
                 number_student += 1;
+
+                // inner student
                 students_inner_adm.innerHTML += `
                     <tr>
                         <td>${number_student}</td>
@@ -102,6 +104,24 @@ function students_list() {
         }
     });
 }
+
+// Переменная для изображений
+let image_number = -1;
+
+// Для вопросов
+let question_number = -1;
+
+// Переменная для нумерации вопросов
+number_test = 0;
+
+// Для получения из массивая id
+let button_number = -1;
+
+// Генерация рандомных чисел для id кнопки открытия тестов
+let random_number;
+let min = 1;
+let max = 1000;
+let random_number_array = [];
 
 // List for results students
 function results_students_list() {
@@ -117,6 +137,7 @@ function results_students_list() {
             let test_title_fb = doc.Ud.Ze.proto.mapValue.fields.test_title.stringValue;
             let result_fb = doc.Ud.Ze.proto.mapValue.fields.result.stringValue;
             let teacher_fb = doc.Ud.Ze.proto.mapValue.fields.id_teacher_r.stringValue;
+            let id_fb = doc.Ud.Ze.proto.mapValue.fields.id.integerValue;
 
             let student_res_obj = {
                 name: name_fb,
@@ -125,7 +146,8 @@ function results_students_list() {
                 test_theme: test_theme_fb,
                 test_title: test_title_fb,
                 result: result_fb,
-                id_teacher_admin: teacher_fb
+                id_teacher_admin: teacher_fb,
+                id_test: id_fb
             };
 
             results_students_mas.push(student_res_obj);
@@ -134,19 +156,121 @@ function results_students_list() {
         // FOR []
         for (let i = 0; i < results_students_mas.length; i++) {
             if ( id_teacher_admin2 === results_students_mas[i].id_teacher_admin ) {
+                random_number = Math.floor(Math.random() * (max - min)) + min;
+                random_number_array.push(random_number);
+
                 number_student += 1;
+
+                // inner result
                 results_students_inner_adm.innerHTML += `
                     <tr>
                         <td>${number_student}</td>
                         <td>${results_students_mas[i].name} ${results_students_mas[i].surname}</td>
                         <td>${results_students_mas[i].test_subject}</td>
-                        <td>${results_students_mas[i].test_theme}</td>
-                        <td>${results_students_mas[i].test_title}</td>
-                        <td>${results_students_mas[i].result}</td>
+                        <td id="${random_number}"></td>
                     </tr>
                 `;
             } else { }
         }
+    });
+
+    // Вывод тестов
+    db.collection("tests").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            button_number += 1;
+            question_number = -1;
+            image_number += 1;
+            let id_db = doc.Ud.Ze.proto.mapValue.fields.id.integerValue;
+            let id_teacher_t_db = doc.Ud.Ze.proto.mapValue.fields.id_teacher_t.stringValue;
+            let klass_db = doc.Ud.Ze.proto.mapValue.fields.klass.stringValue;
+            let subject_db = doc.Ud.Ze.proto.mapValue.fields.subject.stringValue;
+            let theme_db = doc.Ud.Ze.proto.mapValue.fields.theme.stringValue;
+            let questions_db = doc.Ud.Ze.proto.mapValue.fields.questions.arrayValue.values;
+
+            let student_id = localStorage.getItem("student_id");
+            let klass = localStorage.getItem("klass");
+            let word_klass = localStorage.getItem("word_klass");
+
+            let test = document.getElementById("div_tests");
+
+            if (id_teacher_t_db === student_id) {
+              if (`${klass}${word_klass}` === klass_db) {
+                if (results_students_mas[button_number].id_test === id_db) {
+                  number_test += 1;
+                  for (let i = 0; i < random_number_array.length; i++) {
+                    let td = document.getElementById(random_number_array[i]);
+
+                    // inner btn open modal window test
+                    td.innerHTML += `
+                        <button class="btn btn-outline-dark" data-toggle="modal" data-target="#${subject_db}${id_db}">Открыть тест</button>
+                    `;
+                  }
+
+                  // inner modal window test
+                  test.innerHTML += `
+                    <div class="modal fade" id="${subject_db}${id_db}" tabindex="-1" role="dialog" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-body" id="test${id_db}"></div>
+                          <div class="modal-footer" id="test-footer">
+                            <button class="btn btn-outline-dark" data-dismiss="modal" id="close-test">
+                              <i class="fas fa-door-open"></i>
+                              Закрыть
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  `;
+
+                  // get question
+                  let question = document.getElementById(`test${id_db}`);
+
+                  for (let i = 0; i < questions_db.length; i++) {
+                    question_number += 1;
+                    const current_question_number = question_number
+
+                    // inner test
+                    question.innerHTML += `
+                      <p class="lead" id="question">${questions_db[question_number].mapValue.fields.input_question.stringValue}</p>
+                      <img class="img-fluid" id="image-test${question_number}">
+                      <div class="custom-control custom-radio" id="option1_div">
+                        <input class="custom-control-input" name="radio-answer${question_number}${id_db}" type="radio" id="option1${question_number}${id_db}">
+                        <label class="custom-control-label" for="option1${question_number}${id_db}">${questions_db[question_number].mapValue.fields.option_1.stringValue}</label>
+                      </div>
+                      <div class="custom-control custom-radio" id="option2_div">
+                        <input class="custom-control-input" name="radio-answer${question_number}${id_db}" type="radio" id="option2${question_number}${id_db}">
+                        <label class="custom-control-label" for="option2${question_number}${id_db}">${questions_db[question_number].mapValue.fields.option_2.stringValue}</label>
+                      </div>
+                      <div class="custom-control custom-radio" id="option3_div">
+                        <input class="custom-control-input" name="radio-answer${question_number}${id_db}" type="radio" id="option3${question_number}${id_db}">
+                        <label class="custom-control-label" for="option3${question_number}${id_db}">${questions_db[question_number].mapValue.fields.option_3.stringValue}</label>
+                      </div>
+                      <div class="custom-control custom-radio" id="option4_div">
+                        <input class="custom-control-input" name="radio-answer${question_number}${id_db}" type="radio" id="option4${question_number}${id_db}">
+                        <label class="custom-control-label" for="option4${question_number}${id_db}">${questions_db[question_number].mapValue.fields.option_4.stringValue}</label>
+                      </div>
+                      <p class="lead">Ученик ответил: ${results_students_mas[question_number].result}</p>
+                    `;
+
+                    // inner image(s)
+                    let image = firebase.storage().ref(`/test${id_db}/question${question_number}`);
+                    image.getDownloadURL().then((url) => {
+                      let image_test = document.getElementById(`image-test${current_question_number}`);
+                      image_test.src = url;
+                    }).catch((error) => {
+                      switch (error.code) {
+                        case 'storage/object-not-found': break;
+                        case 'storage/unauthorized': break;
+                        case 'storage/canceled': break;
+                        case 'storage/unknown': break;
+                      }
+                    })
+                }
+                }
+            }
+          }
+        })
     });
 }
 
@@ -157,52 +281,36 @@ function tests() {
 
     db.collection("tests").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-
             let subject_fb = doc.Ud.Ze.proto.mapValue.fields.subject.stringValue;
-            let question = doc.Ud.Ze.proto.mapValue.fields.question.stringValue;
             id = doc.Ud.Ze.proto.mapValue.fields.id.integerValue;
             let klass_fb = doc.Ud.Ze.proto.mapValue.fields.klass.stringValue;
             let school_fb = doc.Ud.Ze.proto.mapValue.fields.school.stringValue;
             let theme_fb = doc.Ud.Ze.proto.mapValue.fields.theme.stringValue;
 
             // id fb (firebase)
-            let id_teacher_admin1 = doc._document.proto.fields.id_teacher_t.stringValue;
+            let id_teacher_admin1 = doc.Ud.Ze.proto.mapValue.fields.id_teacher_t.stringValue;
 
-            let test_obj = {
-                subject: subject_fb,
-                school: school_fb,
-                klass: klass_fb,
-                theme: theme_fb,
-                id_teacher_admin: id_teacher_admin1
-            };
-
-            tests_mas.push(test_obj);
-        });
-
-        // FOR []
-        for (let i = 0; i < tests_mas.length; i++) {
-            if ( id_teacher_admin2 === tests_mas[i].id_teacher_admin ) {
-                // nuber tests
+            if ( id_teacher_admin2 === id_teacher_admin2 ) {
+                // number tests
                 number_tests += 1;
 
-                // HTML
+                // inner test
                 tests_inner_adm.innerHTML += `
-                <tr id="test${id}">
-                    <th id="number-test" scope="row">${number_tests}</th>
-                    <td id="subject-test">${tests_mas[i].subject}</td>
-                    <td id="school-test">${tests_mas[i].school}</td>
-                    <td id="klass-test">${tests_mas[i].klass}</td>
-                    <td id="theme-test">${tests_mas[i].theme}</td>
-                    <td id="delete-test">
-                        <button class="btn btn-outline-danger" onclick="delete_test(${id})" id="delete-test">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `;
+                  <tr id="test${id}">
+                      <th id="number-test" scope="row">${number_tests}</th>
+                      <td id="subject-test">${subject_fb}</td>
+                      <td id="school-test">${school_fb}</td>
+                      <td id="klass-test">${klass_fb}</td>
+                      <td id="theme-test">${theme_fb}</td>
+                      <td id="delete-test">
+                          <button class="btn btn-outline-danger" onclick="delete_test(${id})" id="delete-test">
+                              <i class="fas fa-trash"></i>
+                          </button>
+                      </td>
+                  </tr>
+                `;
             } else { }
-        }
-
+        });
     });
 }
 

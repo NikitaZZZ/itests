@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="col-9">
-            <div class="tab-content">
+            <div class="tab-content" id="div_tests">
                 <div class="tab-pane fade show active" id="home" role="tabpanel">
                     <div class="card text-center">
                         <div class="card-header" style="font-size: 18px;">
@@ -69,7 +69,7 @@
                             </tr>
                             </thead>
                             <tbody id="students_table">
-        
+
                             </tbody>
                         </table>
                 </div>
@@ -80,13 +80,11 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Имя</th>
                                 <th scope="col">Предмет</th>
-                                <th scope="col">Тема</th>
-                                <th scope="col">Название вопроса</th>
-                                <th scope="col">Результат</th>
+                                <th scope="col">Результаты</th>
                             </tr>
                             </thead>
                             <tbody id="results_students_table">
-        
+
                             </tbody>
                         </table>
                 </div>
@@ -103,140 +101,13 @@
                             </tr>
                             </thead>
                             <tbody id="tests_inner">
-        
+
                             </tbody>
                         </table>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
-                <i class="fas fa-home"></i>
-                Главная
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="students-tab" data-toggle="tab" onclick="students_list(); clear_students()" href="#students" role="tab" aria-controls="profile" aria-selected="false">
-                <i class="fas fa-users"></i>
-                Обучающиеся
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="results-students-tab" data-toggle="tab" onclick="results_students_list(); clear_results_students()" href="#results_students" role="tab" aria-controls="profile" aria-selected="false">
-                <i class="fas fa-users"></i>
-                Результаты тестов
-            </a>
-        </li>
-        <li>
-            <a class="nav-link" id="tests-tab" data-toggle="tab" onclick="tests(); clear_tests()" href="#tests" role="tab" aria-controls="tests" aria-selected="false">
-                <i class="fas fa-paste"></i>
-                Тесты
-            </a>
-        </li>
-        <a href="index.html" id="back-tab" class="nav-link">
-            <i class="fas fa-door-open"></i>
-            Назад
-        </a>
-    </ul> -->
-    <!-- <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <div class="container">
-                <div class="card" id="form_reg">
-                    <div class="card-body">
-                        <div class="form">
-                            <p class="lead">Зарегистрировать нового ученика: </p>
-                            <div class="form-group row">
-                                <label for="name" class="col-sm-2 col-form-label">Имя: </label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="name">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="surname" class="col-sm-2 col-form-label">Фамилия: </label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="surname">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="surname" class="col-sm-2 col-form-label">Класс: </label>
-                                <div class="col-sm-10">
-                                    <input type="number" min="1" max="12" class="form-control" id="klass">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="word_klass">Буква: </label>
-                                <select id="word_klass" class="form-control">
-                                    <option selected>А</option>
-                                    <option>Б</option>
-                                    <option>В</option>
-                                    <option>Г</option>
-                                    <option>Д</option>
-                                </select>
-                            </div>
-                            <button type="submit" onclick="signUpStudent()" id="reg-new-student" class="btn btn-outline-primary">Зарегистрировать</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="tab-pane fade" id="students" role="tabpanel" aria-labelledby="students-tab">
-            <div class="container">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Имя</th>
-                        <th scope="col">Класс</th>
-                    </tr>
-                    </thead>
-                    <tbody id="students_table">
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="tab-pane fade" id="results_students" role="tabpanel" aria-labelledby="results-students-tab">
-            <div class="container">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Имя</th>
-                        <th scope="col">Предмет</th>
-                        <th scope="col">Тема</th>
-                        <th scope="col">Название вопроса</th>
-                        <th scope="col">Результат</th>
-                    </tr>
-                    </thead>
-                    <tbody id="results_students_table">
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="tab-pane fade" id="tests" role="tabpanel" aria-labelledby="tests-tab">
-            <div class="container">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Предмет</th>
-                        <th scope="col">Школа</th>
-                        <th scope="col">Класс</th>
-                        <th scope="col">Тема</th>
-                        <th scope="col">Удалить тест</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tests_inner">
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div> -->
 
     <script src="https://kit.fontawesome.com/373834e38f.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
@@ -245,6 +116,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
     <script src="js/firebase.js"></script>

@@ -51,18 +51,20 @@
         function call_test(id, correct, subject, theme, question,
         question_number_e) {
             let isCorrect = "";
-                let option1_e = document.getElementById(`option1${question_number_e}`);
-                let option2_e = document.getElementById(`option2${question_number_e}`);
-                let option3_e = document.getElementById(`option3${question_number_e}`);
-                let option4_e = document.getElementById(`option4${question_number_e}`);
+                let option1_e = document.getElementById(`option1${question_number_e}${id}`);
+                let option2_e = document.getElementById(`option2${question_number_e}${id}`);
+                let option3_e = document.getElementById(`option3${question_number_e}${id}`);
+                let option4_e = document.getElementById(`option4${question_number_e}${id}`);
                 let button = document.getElementById(`open_question${id}`);
-                let button_check_answer = document.getElementById(`check-answer${question_number}`);
+                let button_check_answer = document.getElementById(`check-answer${question_number_e}${id}`);
                 if (option1_e.checked === false && option2_e.checked === false && option3_e.checked === false && option4_e.checked === false) {
                     Swal.fire({
                         title: "Выберите вариант ответа!",
                         icon: "error"
                     });
                 } else {
+                    button_check_answer.disabled = true;
+
                     if (option1_e.checked) {
                         if (correct === 1) {
                             Swal.fire({
@@ -178,7 +180,8 @@
                         test_subject: subject,
                         test_theme: theme,
                         test_title: question,
-                        result: isCorrect
+                        result: isCorrect,
+                        id: id
                     });
                 }
         }
