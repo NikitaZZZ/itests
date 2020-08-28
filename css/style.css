@@ -9,10 +9,6 @@ nav { color: #000; border-bottom: 3px solid #4B0C5B; }
 
 #code_teacher_div { margin-bottom: 3%; }
 
-#buttons-auth {
-    margin-top: 2%;
-}
-
 #name_signIn_teacher, #surname_signIn_teacher,
 #name_signIn_student, #surname_signIn_student,
 #name_reg_teacher, #surname_reg_teacher,
@@ -136,7 +132,7 @@ nav { color: #000; border-bottom: 3px solid #4B0C5B; }
 #link-tabs {
     margin-left: 1%;
 }
-
+ 
 #create-test-btn {
   margin-top: 1.5vh;
 }
@@ -148,12 +144,23 @@ nav { color: #000; border-bottom: 3px solid #4B0C5B; }
   background: #fff;
 }
 
-#close-test {
+.close-test {
   color: #fff;
   margin-top: 1.4vh;
   background: #343a40;
 }
 
-#hr {
-  height: 0.2vh;
+#send-test { margin-top: 1.4vh; }
+
+#hr { height: 0.2vh; }
+
+.appersial {
+    width: 5.4vh;
+    border-radius: 30px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

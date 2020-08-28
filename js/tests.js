@@ -20,6 +20,9 @@ let question_number = -1;
 // Массив с id'ми учителей
 let teachers_tests_id = [];
 
+// результаты теста
+let results_test = [];
+
 // Вывод тестов
 db.collection("tests").get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
@@ -59,7 +62,11 @@ db.collection("tests").get().then((querySnapshot) => {
                   <div class="modal-content">
                     <div class="modal-body" id="test${id_db}"></div>
                     <div class="modal-footer" id="test-footer">
-                      <button class="btn btn-outline-dark" data-dismiss="modal" id="close-test">
+                      <button class="btn btn-outline-success" onclick="send_test()" id="send-test">
+                        <i class="fas fa-check"></i>
+                        Отправить учителю
+                      </button>
+                      <button class="close-test btn btn-outline-dark" data-dismiss="modal" id="close-test${id_db}" disabled>
                         <i class="fas fa-door-open"></i>
                         Закрыть
                       </button>
@@ -95,7 +102,7 @@ db.collection("tests").get().then((querySnapshot) => {
                   <label class="custom-control-label" for="option4${question_number}${id_db}">${questions_db[question_number].mapValue.fields.option_4.stringValue}</label>
                 </div>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                  <button class="btn btn-outline-success mt-2" id="check-answer${question_number}${id_db}" style="margin-top: 2%;" onclick="call_test(${id_db}, ${questions_db[question_number].mapValue.fields.correct_answer.integerValue}, '${subject_db}', '${theme_db}', '${questions_db[question_number].mapValue.fields.input_question.stringValue}', '${question_number}');" style="border-radius: 0">
+                  <button class="btn btn-outline-success mt-2" id="check-answer${question_number}${id_db}" style="margin-top: 2%;" onclick="call_test(${id_db}, ${questions_db[question_number].mapValue.fields.correct_answer.integerValue}, '${subject_db}', '${theme_db}', '${questions_db[question_number].mapValue.fields.input_question.stringValue}', '${question_number}', '${id_teacher_t_db}', '${klass}', '${word_klass}');" style="border-radius: 0">
                       <i class="fas fa-check"></i>
                     Ответить
                   </button>

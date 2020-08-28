@@ -41,8 +41,7 @@ function signInStudents() {
 
             students.push(student_obj);
         });
-        console.log(nameSignIn, surnameSignIn, klassSignIn);
-        console.log(students);
+        
         for (let i = 0; i < students.length; i++) {
             if (nameSignIn === students[i].name && surnameSignIn === students[i].surname && klassSignIn === `${students[i].klass}${students[i].word_klass}`) {
                 localStorage.setItem("name", students[i].name);
@@ -51,11 +50,13 @@ function signInStudents() {
                 localStorage.setItem("klass", students[i].klass);
                 localStorage.setItem("word_klass", students[i].word_klass);
                 location.href = "tests.html";
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: "Вы неверно ввели данные или не ввели их!"
-                })
+            } else { 
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "Вы неверно ввели данные или не ввели их!"
+                    })
+                }, 1000);
             }
         }
     });
@@ -103,10 +104,10 @@ function signInTeacher() {
 
     db.collection("teacher").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            console.log(doc)
             let name_fb = doc.Ud.Ze.proto.mapValue.fields.name.stringValue;
             let surname_fb = doc.Ud.Ze.proto.mapValue.fields.surname.stringValue;
             let id_teacher_fb_p = doc.Ud.Ze.proto.mapValue.fields.idteacher.integerValue;
+            
             if (id_teacher_fb_p === code) {
                 let teacher_obj = {
                     name: name_fb,
@@ -116,10 +117,12 @@ function signInTeacher() {
                 teachers.push(teacher_obj);
                 localStorage.setItem("id_teacher", id_teacher_fb_p);
             } else if (id_teacher_fb_p !== code) {
-                Swal.fire({
-                    icon: 'error',
-                    title: "Вы неверно ввели данные или не ввели их!"
-                })
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "Вы неверно ввели данные или не ввели их!"
+                    })
+                }, 1000);
             }
         });
 
@@ -130,25 +133,33 @@ function signInTeacher() {
                 localStorage.setItem('id_teacher_local', teachers[i].id_teacher_obj);
                 check_checkbox();
             } else if (nameSignIn !== teachers[i].name && surnameSignIn !== teachers[i].surname && id_teacher_fb_p !== id_teacher) {
-                Swal.fire({
-                    icon: 'error',
-                    title: "Вы неверно ввели данные или не ввели их!"
-                })
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "Вы неверно ввели данные или не ввели их!"
+                    })
+                }, 1000);
             } else if (nameSignIn !== teachers[i].name) {
-                Swal.fire({
-                    icon: 'error',
-                    title: "Вы неверно ввели данные или не ввели их!"
-                })
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "Вы неверно ввели данные или не ввели их!"
+                    })
+                }, 1000);
             } else if (surnameSignIn !== teachers[i].surname) {
-                Swal.fire({
-                    icon: 'error',
-                    title: "Вы неверно ввели данные или не ввели их!"
-                })
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "Вы неверно ввели данные или не ввели их!"
+                    })
+                }, 1000);
             } else if (id_teacher_fb_p !== id_teacher) {
-                Swal.fire({
-                    icon: 'error',
-                    title: "Вы неверно ввели данные или не ввели их!"
-                })
+                setTimeout(() => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "Вы неверно ввели данные или не ввели их!"
+                    })
+                }, 1000);
             }
         }
     });

@@ -10,12 +10,19 @@
     <title>INFINITY TESTS - Тесты</title>
 </head>
 <body>
-    <div class="container">
-        <h1 style="text-align: center;">INFINITY TESTS</h1>
-        <h2 style="text-align: center" id="title">Тесты</h2>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+            <img src="img/pizap.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+            INFINITY TESTS - Тесты
+        </a>
         <div class="d-flex justify-content-center">
             <button class="btn btn-outline-danger" id="back" onclick="location.href='index.html'">Назад</button>
         </div>
+    </nav>
+
+    <div class="container">
+        <!-- <h1 style="text-align: center;">INFINITY TESTS</h1>
+        <h2 style="text-align: center" id="title">Тесты</h2> -->
         <table class="table" id="table_tests">
             <thead id="thead_table">
                 <tr>
@@ -48,8 +55,10 @@
     <!-- <script src="js/auth.js"></script> -->
     <script src="js/tests.js"></script>
     <script>
+        let close_btn;
+
         function call_test(id, correct, subject, theme, question,
-        question_number_e) {
+        question_number_e, teacher_id, klass, word_klass) {
             let isCorrect = "";
                 let option1_e = document.getElementById(`option1${question_number_e}${id}`);
                 let option2_e = document.getElementById(`option2${question_number_e}${id}`);
@@ -171,20 +180,49 @@
                         }
                     }
 
-                    let db = firebase.firestore();
-                    let id_teacher_local = localStorage.getItem("id_teacher_local");
-                    db.collection("results").add({
+                    results_test.push({
                         name: name,
                         surname: surname,
-                        id_teacher_r: id_teacher_local,
+                        id_teacher: teacher_id,
                         test_subject: subject,
                         test_theme: theme,
                         test_title: question,
+                        id: id,
                         result: isCorrect,
-                        id: id
+                        klass: klass,
+                        word_klass: word_klass
                     });
+
+                    close_btn = document.getElementById(`close-test${id}`);
+
+                    // let db = firebase.firestore();
+                    // let id_teacher_local = localStorage.getItem("id_teacher_local");
+
+                    // db.collection("results").add({
+                    //     name: name,
+                    //     surname: surname,
+                    //     id_teacher_r: id_teacher_local,
+                    //     test_subject: subject,
+                    //     test_theme: theme,
+                    //     test_title: question,
+                    //     result: isCorrect,
+                    //     id: id
+                    // });
                 }
-        }
+            }
+
+            const getRandId = () => Math.floor(Math.random() * Number.MAX_SAFE_INTEGER).toString();
+
+            function send_test() {
+                close_btn.disabled = false;
+                
+                let db = firebase.firestore();
+                let rand_number = getRandId(); 
+
+                db.collection("results").add({
+                    result: results_test,
+                });
+            }
     </script>
 </body>
 </html>

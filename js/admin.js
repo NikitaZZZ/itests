@@ -5,7 +5,8 @@ let db = firebase.firestore();
 let number_student = 0;
 
 // MAS FOR RESULTS STUDENTS
-let results_students_mas = [];
+let results_students_mas_right = [];
+let results_students_mas_wrong = [];
 
 // MAS FOR STUDENTS
 let students_mas = [];
@@ -52,6 +53,14 @@ function signUpStudent() {
             icon: "error"
         })
     } else {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Успешно!',
+            showConfirmButton: false,
+            timer: 1500
+        });
+
         db.collection("students").add({
             name: name,
             surname: surname,
@@ -118,159 +127,116 @@ number_test = 0;
 let button_number = -1;
 
 // Генерация рандомных чисел для id кнопки открытия тестов
-let random_number;
+let random_number = 0;
 let min = 1;
 let max = 1000;
 let random_number_array = [];
 
+// Нумерация
+let number_numer = 0;
+
+// оценка
+let appraisal = 0;
+
 // List for results students
 function results_students_list() {
     // id local (localStorage)
-    let id_teacher_admin2 = localStorage.getItem('id_teacher_local');
-
     db.collection("results").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            let name_fb = doc.Ud.Ze.proto.mapValue.fields.name.stringValue;
-            let surname_fb = doc.Ud.Ze.proto.mapValue.fields.surname.stringValue;
-            let test_subject = doc.Ud.Ze.proto.mapValue.fields.test_subject.stringValue;
-            let test_theme_fb = doc.Ud.Ze.proto.mapValue.fields.test_theme.stringValue;
-            let test_title_fb = doc.Ud.Ze.proto.mapValue.fields.test_title.stringValue;
-            let result_fb = doc.Ud.Ze.proto.mapValue.fields.result.stringValue;
-            let teacher_fb = doc.Ud.Ze.proto.mapValue.fields.id_teacher_r.stringValue;
-            let id_fb = doc.Ud.Ze.proto.mapValue.fields.id.integerValue;
+            let result_arr = doc.data().result;
 
-            let student_res_obj = {
-                name: name_fb,
-                surname: surname_fb,
-                test_subject: test_subject,
-                test_theme: test_theme_fb,
-                test_title: test_title_fb,
-                result: result_fb,
-                id_teacher_admin: teacher_fb,
-                id_test: id_fb
-            };
-
-            results_students_mas.push(student_res_obj);
-        });
-
-        // FOR []
-        for (let i = 0; i < results_students_mas.length; i++) {
-            if ( id_teacher_admin2 === results_students_mas[i].id_teacher_admin ) {
-                random_number = Math.floor(Math.random() * (max - min)) + min;
-                random_number_array.push(random_number);
-
-                number_student += 1;
-
-                // inner result
-                results_students_inner_adm.innerHTML += `
-                    <tr>
-                        <td>${number_student}</td>
-                        <td>${results_students_mas[i].name} ${results_students_mas[i].surname}</td>
-                        <td>${results_students_mas[i].test_subject}</td>
-                        <td id="${random_number}"></td>
-                    </tr>
-                `;
-            } else { }
-        }
-    });
-
-    // Вывод тестов
-    db.collection("tests").get().then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-            button_number += 1;
-            question_number = -1;
-            image_number += 1;
-            let id_db = doc.Ud.Ze.proto.mapValue.fields.id.integerValue;
-            let id_teacher_t_db = doc.Ud.Ze.proto.mapValue.fields.id_teacher_t.stringValue;
-            let klass_db = doc.Ud.Ze.proto.mapValue.fields.klass.stringValue;
-            let subject_db = doc.Ud.Ze.proto.mapValue.fields.subject.stringValue;
-            let theme_db = doc.Ud.Ze.proto.mapValue.fields.theme.stringValue;
-            let questions_db = doc.Ud.Ze.proto.mapValue.fields.questions.arrayValue.values;
-
-            let student_id = localStorage.getItem("student_id");
-            let klass = localStorage.getItem("klass");
-            let word_klass = localStorage.getItem("word_klass");
-
-            let test = document.getElementById("div_tests");
-
-            if (id_teacher_t_db === student_id) {
-              if (`${klass}${word_klass}` === klass_db) {
-                if (results_students_mas[button_number].id_test === id_db) {
-                  number_test += 1;
-                  for (let i = 0; i < random_number_array.length; i++) {
-                    let td = document.getElementById(random_number_array[i]);
-
-                    // inner btn open modal window test
-                    td.innerHTML += `
-                        <button class="btn btn-outline-dark" data-toggle="modal" data-target="#${subject_db}${id_db}">Открыть тест</button>
-                    `;
-                  }
-
-                  // inner modal window test
-                  test.innerHTML += `
-                    <div class="modal fade" id="${subject_db}${id_db}" tabindex="-1" role="dialog" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-body" id="test${id_db}"></div>
-                          <div class="modal-footer" id="test-footer">
-                            <button class="btn btn-outline-dark" data-dismiss="modal" id="close-test">
-                              <i class="fas fa-door-open"></i>
-                              Закрыть
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  `;
-
-                  // get question
-                  let question = document.getElementById(`test${id_db}`);
-
-                  for (let i = 0; i < questions_db.length; i++) {
-                    question_number += 1;
-                    const current_question_number = question_number
-
-                    // inner test
-                    question.innerHTML += `
-                      <p class="lead" id="question">${questions_db[question_number].mapValue.fields.input_question.stringValue}</p>
-                      <img class="img-fluid" id="image-test${question_number}">
-                      <div class="custom-control custom-radio" id="option1_div">
-                        <input class="custom-control-input" name="radio-answer${question_number}${id_db}" type="radio" id="option1${question_number}${id_db}">
-                        <label class="custom-control-label" for="option1${question_number}${id_db}">${questions_db[question_number].mapValue.fields.option_1.stringValue}</label>
-                      </div>
-                      <div class="custom-control custom-radio" id="option2_div">
-                        <input class="custom-control-input" name="radio-answer${question_number}${id_db}" type="radio" id="option2${question_number}${id_db}">
-                        <label class="custom-control-label" for="option2${question_number}${id_db}">${questions_db[question_number].mapValue.fields.option_2.stringValue}</label>
-                      </div>
-                      <div class="custom-control custom-radio" id="option3_div">
-                        <input class="custom-control-input" name="radio-answer${question_number}${id_db}" type="radio" id="option3${question_number}${id_db}">
-                        <label class="custom-control-label" for="option3${question_number}${id_db}">${questions_db[question_number].mapValue.fields.option_3.stringValue}</label>
-                      </div>
-                      <div class="custom-control custom-radio" id="option4_div">
-                        <input class="custom-control-input" name="radio-answer${question_number}${id_db}" type="radio" id="option4${question_number}${id_db}">
-                        <label class="custom-control-label" for="option4${question_number}${id_db}">${questions_db[question_number].mapValue.fields.option_4.stringValue}</label>
-                      </div>
-                      <p class="lead">Ученик ответил: ${results_students_mas[question_number].result}</p>
-                    `;
-
-                    // inner image(s)
-                    let image = firebase.storage().ref(`/test${id_db}/question${question_number}`);
-                    image.getDownloadURL().then((url) => {
-                      let image_test = document.getElementById(`image-test${current_question_number}`);
-                      image_test.src = url;
-                    }).catch((error) => {
-                      switch (error.code) {
-                        case 'storage/object-not-found': break;
-                        case 'storage/unauthorized': break;
-                        case 'storage/canceled': break;
-                        case 'storage/unknown': break;
-                      }
-                    })
-                }
+            for (let i = 0; i < result_arr.length; i++) {
+                if (result_arr[i].result == "Правильно") {
+                    results_students_mas_right.push({
+                        result: 'Правильно',
+                        id: i
+                    });
+                } else if (result_arr[i].result == "Неправильно") {
+                    results_students_mas_wrong.push({
+                        result: 'Неправильно',
+                        id: i
+                    });
                 }
             }
-          }
-        })
+            
+            number_numer += 1;
+            number_student += 1;
+
+            results_students_inner_adm.innerHTML += `
+                <tr>
+                    <td>${number_student}</td>
+                    <td>${result_arr[0].name} ${result_arr[0].surname}</td>
+                    <td>${result_arr[0].klass}${result_arr[0].word_klass}</td>
+                    <td>${result_arr[0].test_subject}</td>
+                    <td>${result_arr[0].test_theme}</td>
+                    <td id="result-inner-${number_numer}"></td>
+                </tr>
+            `;
+
+            for (let i = 0; i < result_arr.length; i++) {
+                try {
+                    if (results_students_mas_right[i].id == i) {
+                        // Всего ответов
+                        all_results = results_students_mas_right.length + results_students_mas_wrong.length;
+    
+                        // Алгоритм вычисления процента от числа
+                        percent_result = Math.round((results_students_mas_right.length / all_results) * 100);
+    
+                        if (percent_result >= 90) {
+                            appraisal = 5;
+                        } else if (percent_result >= 70) {
+                            appraisal = 4;
+                        } else if (percent_result >= 50) {
+                            appraisal = 3;
+                        } else {
+                            appraisal = 2;
+                        }  
+                    } 
+                } catch { }
+
+                try {
+                    if (results_students_mas_wrong[i].id == i) {
+                        // Всего ответов
+                        all_results = results_students_mas_right.length + results_students_mas_wrong.length;
+    
+                        // Алгоритм вычисления процента от числа
+                        percent_result = Math.round((results_students_mas_right.length / all_results) * 100);
+    
+                        if (percent_result >= 90) {
+                            appraisal = 5;
+                        } else if (percent_result >= 70) {
+                            appraisal = 4;
+                        } else if (percent_result >= 50) {
+                            appraisal = 3;
+                        } else if (percent_result < 50) {
+                            appraisal = 2;
+                        }
+                    }
+                } catch { }
+
+                let res_inner = document.getElementById(`result-inner-${number_numer}`)
+
+                res_inner.innerHTML = `
+                    <tr>
+                        <td id="${random_number}">
+                            <p id="appersial${number_numer}">${appraisal}</p>
+                        </td>
+                    </tr>
+                `;
+
+                let appersial_elem = document.getElementById(`appersial${number_numer}`);
+                switch (appraisal) {
+                    case 2: appersial_elem.className = "appersial alert alert-danger"; break;
+                    case 3: appersial_elem.className = "appersial alert alert-warning"; break;
+                    case 4: appersial_elem.className = "appersial alert alert-primary"; break;
+                    case 5: appersial_elem.className = "appersial alert alert-success"; break;
+                }
+            }
+
+            result_arr = [];
+            results_students_mas_right = [];
+            results_students_mas_wrong = [];
+        });
     });
 }
 

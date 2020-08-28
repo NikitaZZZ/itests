@@ -8,82 +8,6 @@ max = 1;
 min = 1000;
 number_id = Math.floor(Math.random() * (max - min)) + min;
 
-// Проверка всех полей и чекбоксов при создании теста
-// function check() {
-//     let input_question_check = document.getElementById("input_question").value;
-//     let option_radio1_check = document.getElementById("option_radio1");
-//     let option_radio2_check = document.getElementById("option_radio2");
-//     let option_radio3_check = document.getElementById("option_radio3");
-//     let option_radio4_check = document.getElementById("option_radio4");
-//     let option_1_check = document.getElementById("inputText1").value;
-//     let option_2_check = document.getElementById("inputText2").value;
-//     let option_3_check = document.getElementById("inputText3").value;
-//     let option_4_check = document.getElementById("inputText4").value;
-//     let school = document.getElementById("school").value;
-//     let klass = document.getElementById("klass").value;
-//     let theme = document.getElementById("theme").value;
-//     let file = document.getElementById("files").files[0];
-//     let checkbox_file = document.getElementById("checkbox_file");
-//
-//     if (input_question_check === '') {
-//         Swal.fire({
-//             text: "Введите вопрос!",
-//             icon: "error"
-//         })
-//     } else if (file === undefined && checkbox_file.checked === false) {
-//         Swal.fire({
-//             text: "Выберите изображение или нажмите на кнопку 'Без изображения'!",
-//             icon: "error"
-//         })
-//     } else if (option_1_check === '') {
-//         Swal.fire({
-//             text: "Введите первый вариант ответа!",
-//             icon: "error"
-//         })
-//     } else if (option_2_check === '') {
-//         Swal.fire({
-//             text: "Введите второй вариант ответа!",
-//             icon: "error"
-//         })
-//     } else if (option_3_check === '') {
-//         Swal.fire({
-//             text: "Введите третий вариант ответа!",
-//             icon: "error"
-//         })
-//     } else if (option_4_check === '') {
-//         Swal.fire({
-//             text: "Введите четвертый вариант ответа!",
-//             icon: "error"
-//         })
-//     } else if (option_radio1_check.checked === false
-//         && option_radio2_check.checked === false
-//         && option_radio3_check.checked === false
-//         && option_radio4_check.checked === false)
-//     {
-//         Swal.fire({
-//             text: "Выберите правильный ответ!",
-//             icon: "error"
-//         })
-//     } else if (school === "") {
-//         Swal.fire({
-//             text: "Введите школу!",
-//             icon: "error"
-//         })
-//     } else if (klass === "") {
-//         Swal.fire({
-//             text: "Введите класс!",
-//             icon: "error"
-//         })
-//     } else if (theme === "") {
-//         Swal.fire({
-//             text: "Введите тему!",
-//             icon: "error"
-//         })
-//     } else {
-//         create_question();
-//     }
-// }
-
 // Для массива вопросов
 let questions_massive = [];
 
@@ -108,7 +32,7 @@ function create_question() {
     let option_4 = document.getElementById("inputText4").value;
     let checkbox_file = document.getElementById("checkbox_file");
 
-    if (checkbox_file.checked) { } else {
+    if (checkbox_file.checked) {} else {
         let file = document.getElementById("files").files[0];
         let file_name = file.name;
         let storageRef = firebase.storage().ref(`/test${number_id}/` + `question${question_number}`);
@@ -130,12 +54,12 @@ function create_question() {
     }
 
     let object_question = {
-      input_question: input_question,
-      option_1: option_1,
-      option_2: option_2,
-      option_3: option_3,
-      option_4: option_4,
-      correct_answer: correct_answer
+        input_question: input_question,
+        option_1: option_1,
+        option_2: option_2,
+        option_3: option_3,
+        option_4: option_4,
+        correct_answer: correct_answer
     };
 
     questions_massive.push(object_question);
@@ -170,27 +94,27 @@ function create_question() {
 }
 
 function create_test() {
-  let subject = document.getElementById("subject").value;
-  let theme = document.getElementById("theme").value;
-  let klass = document.getElementById("klass").value;
-  let school = document.getElementById("school").value;
-  let id_teacher_admin = localStorage.getItem('id_teacher_local');
+    let subject = document.getElementById("subject").value;
+    let theme = document.getElementById("theme").value;
+    let klass = document.getElementById("klass").value;
+    let school = document.getElementById("school").value;
+    let id_teacher_admin = localStorage.getItem('id_teacher_local');
 
-  Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: 'Вы успешно создали тест!',
-      showConfirmButton: false,
-      timer: 1500
-  });
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Вы успешно создали тест!',
+        showConfirmButton: false,
+        timer: 1500
+    });
 
-  db.collection(`tests`).doc(`${number_id}`).set({
-      subject: subject,
-      theme: theme,
-      klass: klass,
-      school: school,
-      id: number_id,
-      id_teacher_t: id_teacher_admin,
-      questions: questions_massive
-  })
+    db.collection(`tests`).doc(`${number_id}`).set({
+        subject: subject,
+        theme: theme,
+        klass: klass,
+        school: school,
+        id: number_id,
+        id_teacher_t: id_teacher_admin,
+        questions: questions_massive
+    });
 }

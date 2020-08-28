@@ -12,6 +12,19 @@
 <body>
     <nav>
         <h1 class="text-center" id="it-tests">INFINITY TESTS</h1>
+        <div class="mb-3" id="buttons-auth">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link" id="sign-in-student-list" data-toggle="list" href="#teacher" role="tab" aria-controls="teacher">Учитель</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="sign-in-teacher-list" data-toggle="list" href="#student" role="tab" aria-controls="student">Ученик</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="reg-teacher-list" data-toggle="list" href="#reg-teacher" role="tab" aria-controls="reg-teacher">Зарегистировать учителя</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <div class="justify-content-center" id="main-auth">
@@ -70,23 +83,10 @@
                         <p for="surname_signIn_student" class="text-center" id="surname">Фамилия</p>
                         <input type="text" class="form-control w-50 mx-auto" id="surname_reg_teacher">
                     </div>
-                    <button type="button" onclick="signUpTeacher()" class="btn-lg btn-block w-25 mx-auto" id="reg-teacher-btn">Зарегистрировать</button>
+                    <button type="button" onclick="signUpTeacher()" class="btn btn-lg btn-block w-25 mx-auto" id="reg-teacher-btn">Зарегистрировать</button>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="buttons-auth">
-        <ul class="nav justify-content-center">
-            <li class="nav-item">
-                <a class="nav-link" id="sign-in-student-list" data-toggle="list" href="#teacher" role="tab" aria-controls="teacher">Учитель</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="sign-in-teacher-list" data-toggle="list" href="#student" role="tab" aria-controls="student">Ученик</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="reg-teacher-list" data-toggle="list" href="#reg-teacher" role="tab" aria-controls="reg-teache">Зарегистировать учителя</a>
-            </li>
-        </ul>
     </div>
 
     <script src="https://kit.fontawesome.com/373834e38f.js" crossorigin="anonymous"></script>
