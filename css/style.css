@@ -5,26 +5,58 @@
     font-family: 'Segoe UI', sans-serif;
 }
 
-nav { color: #000; border-bottom: 3px solid #4B0C5B; }
+body {
+    background: #e9ecef;
+    width: 100%;
+    height: 100%;
+}
+
+nav {
+    color: #000; 
+}
+
+#myTab {
+    border-bottom: 3px solid #4B0C5B;
+}
+
+.nav-tabs .nav-linl {
+    border: none;
+}
+
+#more-info {
+    background: #A850BE;
+    border: 2px solid #A850BE;
+}
+
+#more-info:hover {
+    background: #fff;
+    color: #000;
+    border: 2px solid #A850BE;
+    transition: 0.5s ease;
+}
 
 #code_teacher_div { margin-bottom: 3%; }
 
 #name_signIn_teacher, #surname_signIn_teacher,
 #name_signIn_student, #surname_signIn_student,
 #name_reg_teacher, #surname_reg_teacher,
-#code-teacher-input, #klass_signIn_student {
+#code-teacher-input, #klass_signIn_student, 
+#school_signIn_student {
+    width: 400px;
+    height: 2em;
     font-size: 20px;
     text-align: center;
     box-shadow: none;
 }
 
-#name, #surname, #code-teacher {
+#name, #surname, #code-teacher,
+#school_number, #klass {
     font-size: 18px;
-    font-weight: bold;
     margin-bottom: 1%;
 }
 
 #sign-in-teacher, #sign-in-student, #reg-teacher {
+    height: 2em;
     border-radius: 10px;
     font-size: 15px;
 }
@@ -52,13 +84,18 @@ nav { color: #000; border-bottom: 3px solid #4B0C5B; }
 }
 
 #sign-in-teacher-btn, #sign-in-student-btn, #reg-teacher-btn {
+    width: 120px;
     background: #A850BE;
     color: #fff;
     border: 2px solid #A850BE;
-    border-radius: 10px;
+    border-radius: .3rem;
     font-size: 15px;
     box-shadow: none;
     outline: none;
+}
+
+#sign-in-teacher-btn {
+    margin-top: 10px;
 }
 
 #sign-in-teacher-btn:hover, #sign-in-student-btn:hover, #reg-teacher-btn:hover {
@@ -69,12 +106,15 @@ nav { color: #000; border-bottom: 3px solid #4B0C5B; }
     outline: none;
 }
 
-#choice-where { box-shadow: none; }
+#choice-where {
+    width: 12em;
+    margin-top: 20px;
+}
 
 /* Create Question */
 #table_tests, #create-test { margin-top: 2%; }
 
-#question { margin-bottom: 1%; }
+#question { margin-bottom: 1%; margin-top: 2%; }
 
 #test { padding: 3%; }
 
@@ -113,7 +153,8 @@ nav { color: #000; border-bottom: 3px solid #4B0C5B; }
 }
 
 #v-pills-home-tab:hover, #v-pills-students-tab:hover,
-#v-pills-results-students-tab:hover, #v-pills-tests-tab:hover, #v-back:hover {
+#v-pills-results-students-tab:hover, #v-pills-tests-tab:hover, #v-back:hover,
+#v-pills-general-test-tab:hover {
     background: #A850BE;
     color: #fff;
     transition: 0.3s ease;
@@ -137,6 +178,10 @@ nav { color: #000; border-bottom: 3px solid #4B0C5B; }
   margin-top: 1.5vh;
 }
 
+#create-test-admin-btn {
+    margin-left: 1vh;
+}
+
 #test-footer {
   padding-top: 0;
   border-top: 0;
@@ -155,12 +200,77 @@ nav { color: #000; border-bottom: 3px solid #4B0C5B; }
 #hr { height: 0.2vh; }
 
 .appersial {
-    width: 5.4vh;
+    width: 3em;    
+    height: 3em;
+    margin: 0;
+    padding-top: 0.6em;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
     border-radius: 30px;
+}
+
+#text-appersial {
+    text-align: center;
 }
 
 .footer {
     position: absolute;
     bottom: 0;
     width: 100%;
+}
+
+#testsCollapse {
+    background: #fff;
+}
+
+#inputTimerDiv {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#plus-question-icon {
+    border: 1px solid #A850BE;
+    color: #A850BE;
+}
+
+#plus-question-icon:hover {
+    background: #A850BE;
+    color: #fff;
+}
+
+#btn-tooltip:hover {
+    cursor: pointer;
+}
+
+.search {
+    width: 20em;
+    margin-bottom: 1em;
+}
+
+#v-pills-general-test-tab {
+    visibility: hidden;
+}
+
+@media screen and (max-width: 500px) {
+    #name_signIn_teacher, #surname_signIn_teacher,
+    #name_signIn_student, #surname_signIn_student,
+    #name_reg_teacher, #surname_reg_teacher,
+    #code-teacher-input, #klass_signIn_student,
+    #school_signIn_student {
+        width: 250px;
+        height: 2em;
+        font-size: 20px;
+        text-align: center;
+        box-shadow: none;
+    }
+
+    #myTab > li {
+        font-size: 15px;
+    }
+
+    #sign-in-teacher-title, #sign-in-student-title, 
+    #create-teacher-title {
+        font-size: 28px;
+    }
 }

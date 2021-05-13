@@ -2,31 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/pizap.png">
-    <title>INFINITY TESTS - Панель управления</title>
+    <title>ITests - Панель управления</title>
 </head>
 <body>
-    <!-- <nav>
-        <h1 class="text-center">INFINITY TESTS</h1>
-    </nav> -->
-
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            <img src="img/pizap.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
-            INFINITY TESTS - Панель управления
-        </a>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="img/pizap.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+                Infinity Tests - Панель управления
+            </a>
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-outline-danger" id="back" onclick="location.href='index.html'">Назад</button>
+            </div>
+        </div>
     </nav>
 
     <div class="row" id="main">
         <div class="col-2" id="link-tabs">
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                <a class="nav-link active" id="v-pills-home-tab active" data-toggle="pill" href="#home" role="tab" aria-controls="v-pills-home" aria-selected="true">Зарегистрировать ученика</a>
-                <a class="nav-link" onclick="students_list(); clear_students()" id="v-pills-students-tab" data-toggle="pill" href="#students" role="tab" aria-controls="v-pills-students" aria-selected="false">Обучающиеся</a>
-                <a class="nav-link" onclick="results_students_list(); clear_results_students()" id="v-pills-results-students-tab" data-toggle="pill" href="#results_students" role="tab" aria-controls="v-pills-results-students" aria-selected="false">Результаты тестов</a>
-                <a class="nav-link" onclick="tests(); clear_tests()" id="v-pills-tests-tab" data-toggle="pill" href="#tests" role="tab" aria-controls="v-pills-tests" aria-selected="false">Тесты</a>
-                <a class="nav-link" id="v-back" href="index.html">Назад</a>
+                <a class="nav-link active" id="v-pills-home-tab active" data-bs-toggle="pill" href="#home" role="tab" aria-controls="v-pills-home" aria-selected="true">Зарегистрировать ученика</a>
+                <a class="nav-link" onclick="students_list()" id="v-pills-students-tab" data-bs-toggle="pill" href="#students" role="tab" aria-controls="v-pills-students" aria-selected="false">Обучающиеся</a>
+                <a class="nav-link" onclick="results_students_list()" id="v-pills-results-students-tab" data-bs-toggle="pill" href="#results_students" role="tab" aria-controls="v-pills-results-students" aria-selected="false">Результаты тестов</a>
+                <a class="nav-link" onclick="tests()" id="v-pills-tests-tab" data-bs-toggle="pill" href="#tests" role="tab" aria-controls="v-pills-tests" aria-selected="false">Тесты</a>
+                <a class="nav-link" id="v-pills-general-test-tab" data-bs-toggle="pill" href="#createGeneralTest" role="tab" aria-controls="v-pills-tests" aria-selected="false">Создать готовый тест</a>
             </div>
         </div>
         <div class="col-9">
@@ -47,6 +48,10 @@
                                     <input type="text" class="form-control w-25 mx-auto" id="surname">
                                 </div>
                                 <div class="form-group">
+                                    <label for="school" class="col-sm-2 col-form-label">Школа: </label>
+                                    <input type="number" class="form-control w-25 mx-auto" id="school">
+                                </div>
+                                <div class="form-group">
                                     <label for="surname" class="col-sm-2 col-form-label">Класс: </label>
                                     <input type="number" class="form-control w-25 mx-auto" min="1" max="12" id="klass">
                                 </div>
@@ -58,9 +63,12 @@
                                         <option>В</option>
                                         <option>Г</option>
                                         <option>Д</option>
+                                        <option>Е</option>
+                                        <option>Ё</option>
+                                        <option>Ж</option>
                                     </select>
                                 </div>
-                                <button type="submit" onclick="signUpStudent()" id="reg-new-student" class="btn btn-outline-primary">Зарегистрировать</button>
+                                <button type="submit" onclick="signUpStudent()" id="reg-new-student" class="btn btn-outline-primary mt-3">Зарегистрировать</button>
                             </div>
                         </div>
                     </div>
@@ -73,11 +81,15 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Имя</th>
                                 <th scope="col">Класс</th>
+                                <th scope="col">Удалить ученика</th>
                             </tr>
                             </thead>
-                            <tbody id="students_table">
-
-                            </tbody>
+                            <div class="d-flex justify-content-center">
+                                <form class="form my-2">
+                                    <input class="form-control mr-sm-2 search" type="input" id="searchstudentName" onkeyup="searchInput('studentName')" placeholder="Поиск">
+                                </form>
+                            </div>                    
+                            <tbody id="students_table"></tbody>
                         </table>
                 </div>
                 <div class="tab-pane fade" id="results_students" role="tabpanel" aria-labelledby="results-students-tab">
@@ -89,50 +101,391 @@
                                 <th scope="col">Класс</th>
                                 <th scope="col">Предмет</th>
                                 <th scope="col">Тема</th>
+                                <th scope="col">Дата</th>
                                 <th scope="col">Результат</th>
+                                <th scope="col">Удалить результат</th>
                             </tr>
                             </thead>
+                            <div class="d-flex justify-content-center">
+                                <form class="form my-2">
+                                    <input class="form-control mr-sm-2 search" type="input" id="searchresultStudentName" onkeyup="searchInput('resultStudentName')" placeholder="Поиск">
+                                </form>
+                            </div>
                             <tbody id="results_students_table"></tbody>
                         </table>
                 </div>
                 <div class="tab-pane fade" id="tests" role="tabpanel" aria-labelledby="tests-tab">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Предмет</th>
-                                <th scope="col">Школа</th>
-                                <th scope="col">Класс</th>
-                                <th scope="col">Тема</th>
-                                <th scope="col">Удалить тест</th>
-                            </tr>
-                            </thead>
-                            <tbody id="tests_inner">
+                    <div class="accordion" id="accordionExample">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#algebra" aria-expanded="true" aria-controls="collapseOne">
+                                        Алгебра <span class="badge bg-primary" id="algebra-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="algebra" class="collapse" aria-labelledby="headingOne">
+                                <div class="card-body"></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#math" aria-expanded="true" aria-controls="collapseOne">
+                                        Математика <span class="badge bg-primary" id="math-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="math" class="collapse" aria-labelledby="headingOne">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#english" aria-expanded="true" aria-controls="collapseOne">
+                                        Английский язык <span class="badge bg-primary" id="english-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="english" class="collapse" aria-labelledby="headingOne">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#biology" aria-expanded="true" aria-controls="collapseOne">
+                                        Биология <span class="badge bg-primary" id="biology-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="biology" class="collapse" aria-labelledby="headingOne">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#okrworld" aria-expanded="true" aria-controls="collapseOne">
+                                        Окружающий мир <span class="badge bg-primary" id="okrworld-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="okrworld" class="collapse" aria-labelledby="headingOne">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#geography" aria-expanded="true" aria-controls="collapseOne">
+                                        География <span class="badge bg-primary" id="geography-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="geography" class="collapse" aria-labelledby="headingOne">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#geometry" aria-expanded="true" aria-controls="collapseOne">
+                                        Геометрия <span class="badge bg-primary" id="geometry-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="geometry" class="collapse" aria-labelledby="headingOne">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#history" aria-expanded="true" aria-controls="collapseOne">
+                                        История <span class="badge bg-primary" id="history-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="history" class="collapse" aria-labelledby="headingOne">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#literature" aria-expanded="true" aria-controls="collapseOne">
+                                        Литература <span class="badge bg-primary" id="literature-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="literature" class="collapse" aria-labelledby="headingOne">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#physics" aria-expanded="true" aria-controls="collapseOne">
+                                        Физика <span class="badge bg-primary" id="physics-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="physics" class="collapse" aria-labelledby="headingOne">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#alchemy" aria-expanded="true" aria-controls="collapseOne">
+                                        Химия <span class="badge bg-primary" id="alchemy-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="alchemy" class="collapse" aria-labelledby="headingOne">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#russian" aria-expanded="true" aria-controls="collapseOne">
+                                        Русский язык <span class="badge bg-primary" id="russian-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="russian" class="collapse" aria-labelledby="headingOne">
 
-                            </tbody>
-                        </table>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#obzh" aria-expanded="true" aria-controls="collapseOne">
+                                        ОБЖ <span class="badge bg-primary" id="obzh-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="obzh" class="collapse" aria-labelledby="headingOne">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#pe" aria-expanded="true" aria-controls="collapseOne">
+                                        Физическая культура <span class="badge bg-primary" id="pe-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="pe" class="collapse" aria-labelledby="headingOne">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#tech" aria-expanded="true" aria-controls="collapseOne">
+                                        Технология <span class="badge bg-primary" id="tech-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="tech" class="collapse" aria-labelledby="headingOne">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#obsh" aria-expanded="true" aria-controls="collapseOne">
+                                        Обществознание <span class="badge bg-primary" id="obsh-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="obsh" class="collapse" aria-labelledby="headingOne">
+
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#it" aria-expanded="true" aria-controls="collapseOne">
+                                        Информатика <span class="badge bg-primary" id="it-counter">0</span>
+                                    </button>
+                                </h5>
+                            </div>
+                        
+                            <div id="it" class="collapse" aria-labelledby="headingOne"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="createGeneralTest" role="tabpanel">
+                    <div class="container-fluid" id="create_test">
+                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                           <li class="nav-item">
+                                <button class="btn" id="plus-question-icon" data-bs-toggle="collapse" href="#pills-plus" style="float: left;">Форма создания вопроса</button>
+                                <button class="btn btn-outline-success" data-bs-toggle="collapse" href="#pills-create" id="create-test-admin-btn">Создать тест</button>
+                           </li>
+                        </ul>
+
+                        <div class="container-fluid" id="questions"></div>
+               
+                        <div class="collapse show" id="pills-plus">
+                            <div class="tab-pane" role="tabpanel" aria-labelledby="pills-plus-tab">
+                                <div class="form" id="create-question">
+                                    <div class="form-group row">
+                                        <h3>Вопрос</h3>
+                                        <div class="col-sm-10">
+                                            <input type="text" placeholder="Текст вопроса" class="form-control" id="input_question">
+                                        </div>
+                                    </div>
+                                    <fieldset class="form-group">
+                                        <div class="row mt-3">
+                                            <legend class="col-form-label col-sm-2 pt-0">Варианты ответа</legend>
+                                            <div class="col-sm-10">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="gridRadios" id="option_radio1" value="option1">
+                                                    <input type="text" placeholder="Первый вариант ответа" class="form-control" id="inputText1">
+                                                    <br>
+                                                </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="option_radio2" value="option1">
+                                                <input type="text" placeholder="Второй вариант ответа" class="form-control" id="inputText2">
+                                                <br>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="option_radio3" value="option1">
+                                                <input type="text" placeholder="Третий вариант ответа" class="form-control" id="inputText3">
+                                                <br>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="gridRadios" id="option_radio4" value="option1">
+                                                <input type="text" placeholder="Четвертый вариант ответа" class="form-control" id="inputText4">
+                                                <br>
+                                            </div>
+                                        </div>
+                                        <legend class="col-form-label col-sm-2 pt-0">Изображение: </legend>
+                                        <div class="col-sm-10">
+                                            <div class="form">
+                                                <div class="form-group">
+                                                    <input type="file" id="files" />
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="checkbox_file">
+                                                        <label class="custom-control-label" id="checkbox_file_label" for="checkbox_file">Без изображения</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <div class="form-group row">
+                                        <div class="col-sm-10">
+                                            <button type="submit" class="btn btn-outline-success" onclick="create_question()">Создать вопрос</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collapse" id="pills-create">
+                            <div class="tab-pane" role="tabpanel" aria-labelledby="pills-plus-tab">
+                                <div class="container-fluid">
+                                    <label class="my-1 mr-2 mt-2 d-flex justify-content-center" for="klassGeneralTest">Класс</label>
+                                    <input type="text" placeholder="Класс (Без буквы)" class="form-control w-25 m-auto" id="klassGeneralTest">
+                            
+                                    <label class="my-1 mr-2 mt-2 d-flex justify-content-center" for="subjectGeneralTest">Предмет</label>
+                                    <div class="w-25" style="margin: 0 auto;">
+                                        <select class="form-select my-1 mr-sm-2" id="subjectGeneralTest">
+                                            <option>Алгебра</option>
+                                            <option>Математика</option>
+                                            <option>Английский язык</option>
+                                            <option>Биология</option>
+                                            <option>Окружающий мир</option>
+                                            <option>География</option>
+                                            <option>Геометрия</option>
+                                            <option>История</option>
+                                            <option>Литература</option>
+                                            <option>Физика</option>
+                                            <option>Химия</option>
+                                            <option>Русский язык</option>
+                                            <option>ОБЖ</option>
+                                            <option>Физическая культура</option>
+                                            <option>Технология</option>
+                                            <option>Обществознание</option>
+                                            <option>Информатика</option>
+                                        </select>
+                                    </div>
+                                    <label for="themeGeneralTest" class="my-1 mr-2 mt-2 d-flex justify-content-center">Тема</label>
+                                    <input type="text" placeholder="Тема вопроса" class="form-control w-25 m-auto" id="themeGeneralTest">
+
+                                    <div class="d-flex justify-content-center mt-3">
+                                        <button class="btn btn-outline-success" onclick="createGeneralTest()">Создать</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="https://kit.fontawesome.com/373834e38f.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
-    <script src="js/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-firestore.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/admin.js"></script>
     <script>
         // Удаление теста
-        function delete_test(id) {
+        function delete_test(id, subject) {
             db.collection('tests').doc(`${id}`).delete().then(() => {
                 document.getElementById(`test${id}`).innerHTML = '';
+            });
+
+            tests();
+        }
+
+        // Удаление результата теста
+        function delete_result_test(id, name, surname) {
+            Swal.fire({
+                title: 'Как вы хотите удалить результат?',
+                icon: 'question',
+                showCancelButton: true,
+                showDenyButton: true,
+                denyButtonText: 'Дать пройти тест ученику еще раз',
+                confirmButtonText: 'Просто удалить',
+                cancelButtonText: 'Отмена',
+                allowOutsideClick: false,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    db.collection('results').doc(`${id}${name}${surname}`).delete().then(() => {
+                        document.getElementById(`resultTest${id}`).innerHTML = '';
+                    });
+                } else if (result.isDenied) {
+                    db.collection('results').doc(`${id}${name}${surname}`).delete().then(() => {
+                        document.getElementById(`resultTest${id}`).innerHTML = '';
+
+                        db.collection('testPass').doc(`${id}`).delete();
+                    });
+                } else {}
+            });
+        }
+
+        // Удаление ученика
+        function delete_student(idStudent) {
+            db.collection('students').doc(`${idStudent}`).delete().then(() => {
+                document.getElementById(`student${idStudent}`).innerHTML = '';
             });
         }
     </script>

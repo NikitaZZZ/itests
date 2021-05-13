@@ -4,102 +4,167 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" href="img/pizap.png">
-    <title>INFINITY TESTS - Вход</title>
+    <title>ITests</title>
 </head>
 <body>
-    <nav>
-        <h1 class="text-center" id="it-tests">INFINITY TESTS</h1>
-        <div class="mb-3" id="buttons-auth">
-            <ul class="nav justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link" id="sign-in-student-list" data-toggle="list" href="#teacher" role="tab" aria-controls="teacher">Учитель</a>
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="img/pizap.png" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+                Infinity Tests - Главная
+            </a>
+            <ul class="d-flex justify-content-center nav nav-tabs" id="myTab" role="tablist">
+                <li id="nav-item1">
+                    <a class="nav-link active" id="teacher-tab" data-bs-toggle="tab" href="#teacher" role="tab">Учитель</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="sign-in-teacher-list" data-toggle="list" href="#student" role="tab" aria-controls="student">Ученик</a>
+                <li id="nav-item2">
+                    <a class="nav-link" id="student-tab" data-bs-toggle="tab" href="#student" onclick="studentAutoForm()" role="tab">Ученик</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="reg-teacher-list" data-toggle="list" href="#reg-teacher" role="tab" aria-controls="reg-teacher">Зарегистировать учителя</a>
+                <li id="nav-item3">
+                    <a class="nav-link" id="new-teacher-tab" data-bs-toggle="tab" href="#new-teacher" role="tab">Новый учитель</a>
                 </li>
             </ul>
         </div>
     </nav>
-
-    <div class="justify-content-center" id="main-auth">
-        <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="teacher" role="tabpanel" aria-labelledby="list-teacher-list">
-                <div class="container" id="student_div">
-                    <h1 class="mt-2 text-center">Войти как учитель</h2>
-                    <div class="form-group">
-                        <p for="name_signIn_student" class="text-center" id="name">Имя</p>
-                        <input type="text" class="form-control w-50 mx-auto" id="name_signIn_teacher" aria-describedby="emailHelp">
-                    </div>
-                    <div class="form-group">
-                        <p for="surname_signIn_student" class="text-center" id="surname">Фамилия</p>
-                        <input type="text" class="form-control w-50 mx-auto" id="surname_signIn_teacher">
-                    </div>
-                    <div class="form-group">
-                        <p for="surname_signIn_student" class="text-center" id="code-teacher">Код</p>
-                        <input type="text" class="form-control w-50 mx-auto" id="code-teacher-input">
-                    </div>
-                    <div class="form-group mb-4">
-                        <select class="form-control w-25 mx-auto" id="choice-where">
-                            <option value="tests">Тесты</option>
-                            <option value="create_test">Создание теста</option>
-                            <option value="admin">Панель управления</option>
-                        </select>
-                    </div>
-                    <button type="button" onclick="signInTeacher()" class="btn btn-lg btn-block w-25 mx-auto" id="sign-in-teacher-btn">Войти</button>
-                </div>
+ 
+    <div class="jumbotron">
+        <div class="d-flex align-content-center flex-wrap" id="forms">
+            <div class="p-5 flex-shrink-1 flex-fill bd-highlight" id="hello-form">
+                <h1 class="display-4">Привет!</h1>
+                <p class="lead">Мы в LAR стараемся сделать так, чтобы</p>
+                <p class="lead">учителям было проще работать, а ученикам - учиться.</p>
+                <hr>
+                <p>Приятного использования!</p>
+                <p class="lead">
+                  <a class="btn btn-primary btn-lg" id="more-info" href="https://learnandread-7caed.web.app/infinitytests.html" role="button" target="_blank">Больше информации</a>
+                </p>
             </div>
-            <div class="tab-pane fade" id="student" role="tabpanel" aria-labelledby="list-student-list">
-                <div class="container">
-                    <h1 class="mt-4 text-center">Войти как ученик</h2>
-                    <div class="form-group">
-                        <p for="name_signIn_student" class="text-center" id="name">Имя</p>
-                        <input type="text" class="form-control w-50 mx-auto" id="name_signIn_student" aria-describedby="emailHelp">
+            <div class="p-5 flex-shrink-1 flex-fill bd-highlight" id="sign-in-form">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="teacher" role="tabpanel">
+                        <div class="container-fluid" id="student_div">
+                            <h2 class="mt-2 text-center" id='sign-in-teacher-title'>Войти как учитель</h2>
+                            <div class="mb-3">
+                                <p for="name_signIn_student" class="form-label text-center" id="name">Имя</p>
+                                <input type="text" class="form-control mx-auto" id="name_signIn_teacher" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <p for="surname_signIn_student" class="form-label text-center" id="surname">Фамилия</p>
+                                <input type="text" class="form-control mx-auto" id="surname_signIn_teacher">
+                            </div>
+                            <div class="mb-3">
+                                <p for="surname_signIn_student" class="form-label text-center" id="code-teacher">Код</p>
+                                <input type="text" class="form-control mx-auto" id="code-teacher-input">
+                            </div>
+                            <div class="form-group mb-2">
+                                <select class="form-select mx-auto" id="choice-where">
+                                    <option value="admin">Панель управления</option>
+                                    <option value="create_test">Создание теста</option>
+                                </select>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" onclick="signInTeacher()" class="btn btn" id="sign-in-teacher-btn">Войти</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group mb-4">
-                        <p for="surname_signIn_student" class="text-center" id="surname">Фамилия</p>
-                        <input type="text" class="form-control w-50 mx-auto" id="surname_signIn_student">
+                    <div class="tab-pane fade" id="student" role="tabpanel">
+                        <div class="container-fluid">
+                            <h2 class="mt-2 text-center" id='sign-in-student-title'>Войти как ученик</h2>
+                            <div class="form-group">
+                                <p for="name_signIn_student" class="form-label text-center" id="name">Имя</p>
+                                <input type="text" class="form-control mx-auto" id="name_signIn_student" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <p for="surname_signIn_student" class="form-label text-center mt-3" id="surname">Фамилия</p>
+                                <input type="text" class="form-control mx-auto" id="surname_signIn_student">
+                            </div>
+                            <div class="form-group mb-4">
+                                <p for="school_signIn_student" class="form-label text-center" id="school_number">Класс (С буквой)</p>
+                                <input type="text" class="form-control mx-auto" id="klass_signIn_student" >
+                            </div>
+                            <div class="mb-3">
+                                <p for="school_signIn_student" class="form-label text-center" id="school_number">Номер школы</p>
+                                <input type="text" class="form-control mx-auto" id="school_signIn_student">
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" onclick="signInStudents()" class="btn btn mx-auto" id="sign-in-student-btn">Войти</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group mb-4">
-                        <p for="klass_signIn_student" class="text-center" id="surname">Класс (С буквой)</p>
-                        <input type="text" class="form-control w-50 mx-auto" id="klass_signIn_student">
+                    <div class="tab-pane fade" id="new-teacher" role="tabpanel">
+                        <div class="container-fluid">
+                            <h2 class="mt-2 text-center" id='create-teacher-title'>Новый учитель</h2>
+                            <div class="form-group">
+                                <p for="name_signIn_student" class="text-center" id="name">Имя</p>
+                                <input type="text" class="form-control mx-auto" id="name_reg_teacher" aria-describedby="emailHelp">
+                            </div>
+                            <div class="form-group mb-4">
+                                <p for="surname_signIn_student" class="text-center mt-3" id="surname">Фамилия</p>
+                                <input type="text" class="form-control mx-auto" id="surname_reg_teacher">
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="button" onclick="signUpTeacher()" class="btn btn mx-auto" id="reg-teacher-btn">Создать</button>
+                            </div>
+                        </div>
                     </div>
-                    <button type="button" onclick="signInStudents()" class="btn btn-lg btn-block w-25 mx-auto" id="sign-in-student-btn">Войти</button>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="reg-teacher" role="tabpanel" aria-labelledby="list-reg-teacher-list">
-                <div class="container">
-                    <h1 class="mt-4 text-center">Зарегистрировать учителя</h2>
-                    <div class="form-group">
-                        <p for="name_signIn_student" class="text-center" id="name">Имя</p>
-                        <input type="text" class="form-control w-50 mx-auto" id="name_reg_teacher" aria-describedby="emailHelp">
-                    </div>
-                    <div class="form-group mb-4">
-                        <p for="surname_signIn_student" class="text-center" id="surname">Фамилия</p>
-                        <input type="text" class="form-control w-50 mx-auto" id="surname_reg_teacher">
-                    </div>
-                    <button type="button" onclick="signUpTeacher()" class="btn btn-lg btn-block w-25 mx-auto" id="reg-teacher-btn">Зарегистрировать</button>
                 </div>
             </div>
         </div>
     </div>
 
     <script src="https://kit.fontawesome.com/373834e38f.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-firestore.js"></script>
-    <script src="js/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-firestore.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
-    <!-- <script src="js/admin.js"></script> -->
+
+    <script>
+        window.onload = () => {
+            const nameTeacher = localStorage.getItem("teacherName");
+            const surnameTeacher = localStorage.getItem("teacherSurname");
+            const codeTeacher = localStorage.getItem("id_teacher");
+
+            const nameInput = document.getElementById("name_signIn_teacher");
+            const surnameInput = document.getElementById("surname_signIn_teacher");
+            const codeInput = document.getElementById("code-teacher-input");
+
+            if (nameTeacher && surnameTeacher && codeTeacher != null) {
+                nameInput.value = nameTeacher;
+                surnameInput.value = surnameTeacher;
+                codeInput.value = codeTeacher;
+            }
+        }
+
+        function studentAutoForm() {
+            try {
+                const nameStudent = localStorage.getItem("name");
+                const surnameStudent = localStorage.getItem("surname");
+                const schoolStudent = localStorage.getItem("school");
+                const klassStudent = localStorage.getItem("klass");
+                const wordKlassStudent = localStorage.getItem("word_klass");
+
+                const nameInput = document.getElementById("name_signIn_student");
+                const surnameInput = document.getElementById("surname_signIn_student");
+                const schoolInput = document.getElementById("school_signIn_student");
+                const klassInput = document.getElementById("klass_signIn_student");
+
+                nameInput.value = nameStudent[0].toUpperCase() + nameStudent.slice(1);
+                surnameInput.value = surnameStudent[0].toUpperCase() + surnameStudent.slice(1);
+                schoolInput.value = schoolStudent;
+                klassInput.value = klassStudent + wordKlassStudent.toUpperCase();
+            } catch {}
+        }
+    </script>
 </body>
 </html>
